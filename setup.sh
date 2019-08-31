@@ -35,6 +35,12 @@ git pull
 
 
 ## Symlink (globally-available command)	
+if [ ! -e "/usr/bin/zzcd" ]; then
+
+	ln -s ${INSTALL_DIR}zzcd.sh /usr/bin/zzcd
+fi
+
+
 if [ ! -e "/usr/bin/zzgit" ]; then
 
 	ln -s ${INSTALL_DIR}zzgit.sh /usr/bin/zzgit
