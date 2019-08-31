@@ -60,5 +60,5 @@ CHOICE=$(dialog --clear \
 clear
 if [ ! -z "$CHOICE" ]; then
 
-	cd "$CHOICE" && pwd && ls -lah
+	cd "$CHOICE" && pwd && ls -lah --color=auto
 fi
