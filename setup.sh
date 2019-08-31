@@ -58,7 +58,7 @@ else
 fi
 	
 chmod ug=rwx "$HOME/.bash_aliases"
-source "$HOME/.bash_aliases"
+. ~/.bash_aliases
 
 cat "${INSTALL_DIR}${SCRIPT_NAME}.sh"
 
