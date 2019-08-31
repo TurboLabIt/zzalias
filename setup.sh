@@ -34,6 +34,16 @@ cd "$INSTALL_DIR"
 git pull
 
 
+if [ ! -f "/etc/turbolab.it/zzcd_bookmarks" ]; then
+
+	echo "## This is your zzcd file! Edit away and make it truly yours!" > "/etc/turbolab.it/zzcd_bookmarks.sh"
+	echo "# Pro-tip: open this file quickly with one command: zzcd edit" > "/etc/turbolab.it/zzcd_bookmarks.sh"
+	echo "#"  > "/etc/turbolab.it/zzcd_bookmarks.sh"
+	CONFIG_CONTENT=$(cat "${INSTALL_DIR}zzcd_bookmarks.default.sh" | grep -v '#')
+	echo "$CONFIG_CONTENT" >> "/etc/turbolab.it/zzcd_bookmarks.sh"
+fi
+
+
 ## Symlink (globally-available command)	
 if [ ! -e "/usr/bin/zzcd" ]; then
 
@@ -67,3 +77,5 @@ chmod ug=rwx "$HOME/.bash_aliases"
 
 ## Restore working directory
 cd $WORKING_DIR_ORIGINAL
+
+echo "You should customize your zzcd now. Just run: zzcd edit"
