@@ -62,7 +62,7 @@ fi
 ## Command: ZZWS
 if [ ! -e "/usr/bin/zzws" ]; then
 
-	ln -s ${INSTALL_DIR}zzws-service.sh /usr/bin/zzws
+	ln -s ${INSTALL_DIR}zzws.sh /usr/bin/zzws
 fi
 
 
