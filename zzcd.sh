@@ -4,6 +4,14 @@ clear
 ## Script name
 SCRIPT_NAME=zzcd
 
+
+##
+if [ -z "$(command -v dialog)" ]; then
+
+	sudo apt install dialog -y -qq
+fi
+
+
 ## Absolute path to this script, e.g. /home/user/bin/foo.sh
 SCRIPT_FULLPATH=$(readlink -f "$0")
 
@@ -31,13 +39,6 @@ do
 		source "$CONFIGFILE_FULLPATH"
 	fi
 done
-
-
-##
-if [ -z "$(command -v dialog)" ]; then
-
-	sudo apt install dialog -y -qq
-fi
 
 
 ## Options
