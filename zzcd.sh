@@ -61,4 +61,5 @@ clear
 if [ ! -z "$CHOICE" ]; then
 
 	cd "$CHOICE" && pwd && ls -lah --color=auto
+	cd "$CHOICE"
 fi
