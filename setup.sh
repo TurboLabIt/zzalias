@@ -58,10 +58,6 @@ else
 fi
 	
 chmod ug=rwx "$HOME/.bash_aliases"
-. ~/.bash_aliases
-
-cat "${INSTALL_DIR}${SCRIPT_NAME}.sh"
-
 
 ## Restore working directory
 cd $WORKING_DIR_ORIGINAL
