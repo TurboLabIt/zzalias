@@ -45,19 +45,28 @@ if [ ! -f "/etc/turbolab.it/zzcd_bookmarks" ]; then
 fi
 
 
-## Symlink (globally-available command)	
+## Command: ZZCD
 if [ ! -e "/usr/bin/zzcd" ]; then
 
 	ln -s ${INSTALL_DIR}zzcd.sh /usr/bin/zzcd
 fi
 
 
+## Command: ZZGIT
 if [ ! -e "/usr/bin/zzgit" ]; then
 
 	ln -s ${INSTALL_DIR}zzgit.sh /usr/bin/zzgit
 fi
 
 
+## Command: ZZWS
+if [ ! -e "/usr/bin/zzws" ]; then
+
+	ln -s ${INSTALL_DIR}zzws-service.sh /usr/bin/zzws
+fi
+
+
+## Other one-liners as aliases
 if [ ! -f "$HOME/.bash_aliases" ]; then
 
 	echo "#!/usr/bin/env bash" >> "$HOME/.bash_aliases"
@@ -75,6 +84,7 @@ else
 fi
 	
 chmod ug=rwx "$HOME/.bash_aliases"
+
 
 ## Restore working directory
 cd $WORKING_DIR_ORIGINAL
