@@ -46,10 +46,10 @@ fi
 
 
 ## Command: ZZCD
-if [ ! -e "/usr/bin/zzcd" ]; then
+#if [ ! -e "/usr/bin/zzcd" ]; then
 
-	ln -s ${INSTALL_DIR}zzcd.sh /usr/bin/zzcd
-fi
+	#ln -s ${INSTALL_DIR}zzcd.sh /usr/bin/zzcd
+#fi
 
 
 ## Command: ZZGIT
