@@ -45,13 +45,6 @@ if [ ! -f "/etc/turbolab.it/zzcd_bookmarks" ]; then
 fi
 
 
-## Command: ZZCD
-#if [ ! -e "/usr/bin/zzcd" ]; then
-
-	#ln -s ${INSTALL_DIR}zzcd.sh /usr/bin/zzcd
-#fi
-
-
 ## Command: ZZGIT
 if [ ! -e "/usr/bin/zzgit" ]; then
 
