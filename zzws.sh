@@ -17,15 +17,15 @@ function zzwsservicemassaction {
 
 	if [ $1 == "reload" ]; then
 
-		declare -a SERVICES=("nginx" "php7.3-fpm")
+		declare -a SERVICES=("nginx" "php7.3-fpm" "cron")
 		
 	elif [ $1 == "stop" ]; then
 
-		declare -a SERVICES=("nginx" "php7.3-fpm" "postfix" "opendkim" "mysql")
+		declare -a SERVICES=("nginx" "php7.3-fpm" "postfix" "opendkim" "mysql" "cron")
 		
 	else
 	
-		declare -a SERVICES=("mysql" "opendkim" "postfix" "php7.3-fpm" "nginx")
+		declare -a SERVICES=("mysql" "opendkim" "postfix" "php7.3-fpm" "nginx" "cron")
 	fi
 	
 	
