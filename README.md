@@ -9,6 +9,7 @@ Simple commands:
 * `zzhosts`: open the `hosts` file
 * `zzalias`: a complete workflow to edit and run your `.bash_aliases` (no more logoff/logon! WOT!)
 * `zzsy`: a shortcut to Symfony console for the current directory
+* `zzspacehog`: display top 5 space hog in the current directory
 
 
 More elaborate commands
