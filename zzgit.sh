@@ -55,7 +55,12 @@ else
 fi
 
 
-if [ "$1" == "push" ]; then
+if [ "$1" == "pull" ]; then
+
+	zzgitcmd pull
+
+
+elif [ "$1" == "push" ]; then
 
 	printTitle "Display current status"
 	zzgitcmd status
@@ -69,7 +74,6 @@ if [ "$1" == "push" ]; then
 		exit
 	fi
 
-
 	printTitle "Git add"
 	zzgitcmd add .
 
@@ -81,10 +85,47 @@ if [ "$1" == "push" ]; then
 
 	printTitle "Git push"
 	zzgitcmd push
-	
-elif [ "$1" == "pull" ]; then
 
+
+elif [ "$1" == "flow" ]; then
+
+	printTitle "Fetching..."
+	zzgitcmd fetch --all
+
+	printTitle "Pulling and pushing from the current branch..."
 	zzgitcmd pull
+	zzgitcmd push
+
+	printTitle "Switching to staging..."
+	zzgitcmd checkout staging
+	zzgitcmd pull
+
+	printTitle "Merging dev into staging..."
+	zzgitcmd merge origin/dev --no-edit
+	zzgitcmd push
+
+	echo
+	read -p "Merge to master?  " -n 1 -r
+	echo
+	echo
+	if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+
+		echo "Skipping master, you pussy..."
+
+	else
+		
+		echo "Yippee-ki-yay, switching to master..."
+		zzgitcmd checkout master
+		zzgitcmd pull
+
+		echo "Merging staging into master..."
+		zzgitcmd merge origin/staging --no-edit
+		zzgitcmd push
+	fi
+
+	echo "Switching back to dev..."
+	zzgitcmd checkout dev
+	zzgitcmd branch
 fi
 
 
