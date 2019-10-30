@@ -17,6 +17,7 @@ More elaborate commands
 * `zzgit`: don't worry about the Linux file owner and try `zzgit push` for preview, add, commit, pull, push
 * `zzws`: manage your webstack config and preview, reload/restart/stop 'em all with one command
 * `zzcd`: quick directory selector to browse the filesystem like a pro
+* `zzxdebug`: turn on|off xdebug for all the installed php versions, both cli and fpm
 
 
 # Install
