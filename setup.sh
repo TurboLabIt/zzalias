@@ -59,6 +59,13 @@ if [ ! -e "/usr/bin/zzws" ]; then
 fi
 
 
+## Command: ZZXDEBUG
+if [ ! -e "/usr/bin/zzxdebug" ]; then
+
+	ln -s ${INSTALL_DIR}zzxdebug.sh /usr/bin/zzxdebug
+fi
+
+
 ## Other one-liners as aliases
 if [ ! -f "$HOME/.bash_aliases" ]; then
 
