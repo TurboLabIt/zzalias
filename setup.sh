@@ -34,7 +34,7 @@ cd "$INSTALL_DIR"
 git pull
 
 
-if [ ! -f "/etc/turbolab.it/zzcd_bookmarks" ]; then
+if [ ! -f "/etc/turbolab.it/zzcd_bookmarks.sh" ]; then
 
 	echo "## This is your zzcd file! Edit away and make it truly yours!" > "/etc/turbolab.it/zzcd_bookmarks.sh"
 	echo "#"  >> "/etc/turbolab.it/zzcd_bookmarks.sh"
