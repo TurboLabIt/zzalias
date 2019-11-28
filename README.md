@@ -8,7 +8,8 @@ Simple commands:
 * `zzsshconfig`: tired of `nano $HOME/.ssh/config`? Yeah, I was too
 * `zzhosts`: open the `hosts` file
 * `zzalias`: a complete workflow to edit and run your `.bash_aliases` (no more logoff/logon! WOT!)
-* `zzsy`: a shortcut to Symfony console for the current directory
+* `zzsy`: I really can't stand `./bin/console`!
+* `zzserve`: Start Symfony webserver and proxy
 * `zzspacehog`: display top 5 space hog in the current directory
 
 
