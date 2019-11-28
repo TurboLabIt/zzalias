@@ -7,7 +7,7 @@ Simple commands:
 * `zzsudoweb`: open a shell as the `www-data` user
 * `zzsshconfig`: tired of `nano $HOME/.ssh/config`? Yeah, I was too
 * `zzhosts`: open the `hosts` file
-* `zzalias`: a complete workflow to edit and run your `.bash_aliases` (no more logoff/logon! WOT!)
+* `zzalias`: a complete workflow to edit and run your `.bash_aliases` (no more logoff/logon!)
 * `zzsy`: I really can't stand `./bin/console`!
 * `zzserve`: Start Symfony webserver and proxy
 * `zzspacehog`: display top 5 space hog in the current directory
