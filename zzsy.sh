@@ -23,8 +23,8 @@ if [ "$1" == "serve" ]; then
 
 elif [ "$1" == "migrate" ]; then
 
-	symfony make:migration
-	symfony doctrine:migrations:migrate
+	symfony console make:migration
+	symfony console doctrine:migrations:migrate
 
 else
 
