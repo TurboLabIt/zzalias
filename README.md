@@ -11,6 +11,8 @@ Simple commands:
 * `zzsy`: I really can't stand `./bin/console`!
 * `zzserve`: Start Symfony webserver and proxy
 * `zzspacehog`: display top 5 space hog in the current directory
+* `zznetstat`: alias for `sudo netstat -tuanp`. grep on it at will
+* `zzclients`: Number of open connections per IP
 
 
 More elaborate commands
