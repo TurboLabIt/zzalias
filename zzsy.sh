@@ -20,6 +20,11 @@ if [ "$1" == "serve" ]; then
 
 	symfony server:stop
 	symfony server:start -d
+	
+elif [ "$1" == "server:stop" ]; then
+
+	symfony proxy:stop
+	symfony server:stop
 
 elif [ "$1" == "migrate" ]; then
 
