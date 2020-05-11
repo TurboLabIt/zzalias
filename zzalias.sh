@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
+alias zzuntar="tar -zxvf $1"
 alias zzsudoweb="sudo -u www-data -H bash"
 alias zzsshconfig="sudo nano $HOME/.ssh/config"
 alias zzhosts="sudo nano /etc/hosts"
