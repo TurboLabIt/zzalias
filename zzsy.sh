@@ -13,7 +13,7 @@ printTitle "zzsy"
 echo $(pwd)
 
 
-if [ "$1" == "serve" ]; then
+if [ "$1" == "start" ]; then
 
 	symfony proxy:stop
 	symfony proxy:start
@@ -21,7 +21,7 @@ if [ "$1" == "serve" ]; then
 	symfony server:stop
 	symfony server:start -d
 	
-elif [ "$1" == "server:stop" ]; then
+elif [ "$1" == "stop" ]; then
 
 	symfony proxy:stop
 	symfony server:stop
