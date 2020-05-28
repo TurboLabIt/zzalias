@@ -30,7 +30,11 @@ elif [ "$1" == "migrate" ]; then
 
 	symfony console make:migration
 	symfony console doctrine:migrations:migrate
+	
+elif [ "$1" == "test" ]; then
 
+	php bin/phpunit
+	
 else
 
 	symfony console "$@"
