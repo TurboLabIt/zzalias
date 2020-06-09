@@ -89,23 +89,43 @@ elif [ "$1" == "push" ]; then
 
 elif [ "$1" == "flow" ]; then
 
-	printTitle "Fetching..."
+	printTitle "🤓 Fetching..."
 	zzgitcmd fetch --all
 
-	printTitle "Pulling and pushing from the current branch..."
+	printTitle "🤓 Pulling and pushing from the current branch..."
 	zzgitcmd pull
 	zzgitcmd push
 
-	printTitle "Switching to staging..."
-	zzgitcmd checkout staging
-	zzgitcmd pull
 
-	printTitle "Merging dev into staging..."
-	zzgitcmd merge origin/dev --no-edit
-	zzgitcmd push
+	if [ $(zzgitcmd show-ref --verify --quiet refs/heads/staging) ]; then
+
+		printTitle "🧪 Switching to staging..."
+		zzgitcmd checkout staging
+		zzgitcmd pull
+
+		printTitle "🧪 Merging dev into staging..."
+		zzgitcmd merge origin/dev --no-edit
+		zzgitcmd push
+		
+		BRANCH_TO_MERGE_INTO_MASTER=origin/staging
+
+	else
+		read -p "☠️ Branch staging doesn't exists! Proceed anyway?" -n 1 -r
+		echo
+		echo
+		if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+
+			printTitle "☠️ OK, quitting!"
+			echo ""
+			exit
+		else
+			BRANCH_TO_MERGE_INTO_MASTER=$(zzgitcmd rev-parse --abbrev-ref --symbolic-full-name @{u})
+		fi
+	fi
+
 
 	echo
-	read -p "Merge to master?  " -n 1 -r
+	read -p "🤠 Merge to master?  " -n 1 -r
 	echo
 	echo
 	if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -114,16 +134,16 @@ elif [ "$1" == "flow" ]; then
 
 	else
 		
-		echo "Yippee-ki-yay, switching to master..."
+		echo "🤠 Yippee-ki-yay, switching to master..."
 		zzgitcmd checkout master
 		zzgitcmd pull
 
-		echo "Merging staging into master..."
-		zzgitcmd merge origin/staging --no-edit
+		echo "🤠 Merging $BRANCH_TO_MERGE_INTO_MASTER into master..."
+		zzgitcmd merge $BRANCH_TO_MERGE_INTO_MASTER --no-edit
 		zzgitcmd push
 	fi
 
-	echo "Switching back to dev..."
+	echo "🤓 Switching back to dev..."
 	zzgitcmd checkout dev
 	zzgitcmd branch
 fi
