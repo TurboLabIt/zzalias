@@ -66,9 +66,9 @@ if [ ! -e "/usr/bin/zzxdebug" ]; then
 fi
 
 ## Command: sy
-if [ ! -e "/usr/bin/zzsy" ]; then
+if [ ! -e "/usr/bin/sy" ]; then
 
-	ln -s ${INSTALL_DIR}zzsy.sh /usr/bin/zzsy
+	ln -s ${INSTALL_DIR}sy.sh /usr/bin/sy
 fi
 
 ## Other one-liners as aliases
