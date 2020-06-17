@@ -35,6 +35,10 @@ elif [ "$1" == "test" ]; then
 
 	php bin/phpunit
 	
+elif [ "$1" == "cache" ]; then
+
+	symfony console cache:clear
+	
 else
 
 	symfony console "$@"
