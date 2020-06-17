@@ -38,6 +38,7 @@ elif [ "$1" == "test" ]; then
 elif [ "$1" == "cache" ]; then
 
 	symfony console cache:clear
+	clear
 	
 else
 
