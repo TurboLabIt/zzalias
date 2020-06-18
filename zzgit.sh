@@ -97,7 +97,7 @@ elif [ "$1" == "flow" ]; then
 	zzgitcmd push
 
 
-	if [ $(zzgitcmd show-ref --verify --quiet refs/heads/staging) ]; then
+	if [ "`git branch --list staging`" ]; then
 
 		printTitle "🧪 Switching to staging..."
 		zzgitcmd checkout staging
@@ -110,12 +110,12 @@ elif [ "$1" == "flow" ]; then
 		BRANCH_TO_MERGE_INTO_MASTER=origin/staging
 
 	else
-		read -p "☠️ Branch staging doesn't exists! Proceed anyway?" -n 1 -r
+		read -p "☠️  Branch staging doesn't exists! Proceed anyway?" -n 1 -r
 		echo
 		echo
 		if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 
-			printTitle "☠️ OK, quitting!"
+			printTitle "☠️  OK, quitting!"
 			echo ""
 			exit
 		else
