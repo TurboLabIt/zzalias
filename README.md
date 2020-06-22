@@ -4,7 +4,7 @@ Useful Linux aliases for devops.
 
 Simple commands:
 
-* `zzsudoweb`: open a shell as the `www-data` user
+* `zzweb`: spawn a shell as the `www-data` user
 * `zzsshconfig`: tired of `nano $HOME/.ssh/config`? Yeah, I was too
 * `zzhosts`: alias for `sudo nano /etc/hosts`
 * `zzalias`: a complete workflow to edit and run your `.bash_aliases` (no more logoff/logon!)
