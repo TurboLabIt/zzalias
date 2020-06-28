@@ -23,7 +23,7 @@ if [ ! -d "$INSTALL_DIR" ]; then
 	echo "-------------"
 	mkdir -p "$INSTALL_DIR_PARENT"
 	cd "$INSTALL_DIR_PARENT"
-	git clone git@github.com:TurboLabIt/${SCRIPT_NAME}.git
+	git clone https://github.com/TurboLabIt/${SCRIPT_NAME}.git
 else
 	echo "Updating..."
 	echo "----------"
@@ -65,6 +65,11 @@ if [ ! -e "/usr/bin/zzxdebug" ]; then
 	ln -s ${INSTALL_DIR}zzxdebug.sh /usr/bin/zzxdebug
 fi
 
+## Command: sy
+if [ ! -e "/usr/bin/sy" ]; then
+
+	ln -s ${INSTALL_DIR}sy.sh /usr/bin/sy
+fi
 
 ## Other one-liners as aliases
 if [ "$(logname)" == "root" ]; then
