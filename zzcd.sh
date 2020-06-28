@@ -42,9 +42,9 @@ done
 
 
 ## Options
-HEIGHT=15
-WIDTH=40
-CHOICE_HEIGHT=10
+HEIGHT=17
+WIDTH=65
+CHOICE_HEIGHT=25
 BACKTITLE="zzcd - TurboLab.it"
 TITLE="Quick folder selector"
 MENU="Choose your location:"
