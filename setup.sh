@@ -65,11 +65,13 @@ if [ ! -e "/usr/bin/zzxdebug" ]; then
 	ln -s ${INSTALL_DIR}zzxdebug.sh /usr/bin/zzxdebug
 fi
 
+
 ## Command: sy
 if [ ! -e "/usr/bin/sy" ]; then
 
 	ln -s ${INSTALL_DIR}sy.sh /usr/bin/sy
 fi
+
 
 ## Other one-liners as aliases
 if [ "$(logname)" == "root" ]; then
@@ -85,7 +87,7 @@ fi
 
 if [ ! -f "$ALIASES_FILE" ]; then
 
-	echo "#!/usr/bin/env bash" >> "$HOME/.bash_aliases"
+	echo "#!/usr/bin/env bash" >> "$ALIASES_FILE"
 fi
 
 
@@ -99,7 +101,8 @@ else
 	echo "$ALIASES_FILE has now been patched"
 fi
 	
-chmod ug=rwx "$ALIASES_FILE"
+chmod ug=rwx,o=rx "$ALIASES_FILE"
+source "$ALIASES_FILE"
 
 
 ## Restore working directory
