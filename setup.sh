@@ -67,23 +67,34 @@ fi
 
 
 ## Other one-liners as aliases
-if [ ! -f "$HOME/.bash_aliases" ]; then
+if [ "$(logname)" == "root" ]; then
+
+	ALIASES_FILE=/root/.bash_aliases
+	
+else
+
+	ALIASES_FILE=/home/$(logname)/.bash_aliases
+fi
+
+
+
+if [ ! -f "$ALIASES_FILE" ]; then
 
 	echo "#!/usr/bin/env bash" >> "$HOME/.bash_aliases"
 fi
 
 
-if grep -q $SCRIPT_NAME "$HOME/.bash_aliases"; then
+if grep -q zzalias "$ALIASES_FILE"; then
 
-	echo ".bash_aliases already patched"
+	echo "$ALIASES_FILE was already patched"
 	
 else
 
-	echo "source ${INSTALL_DIR}${SCRIPT_NAME}.sh" >> "$HOME/.bash_aliases"
-	echo ".bash_aliases has been patched"
+	echo "source ${INSTALL_DIR}${SCRIPT_NAME}.sh" >> "$ALIASES_FILE"
+	echo "$ALIASES_FILE has now been patched"
 fi
 	
-chmod ug=rwx "$HOME/.bash_aliases"
+chmod ug=rwx "$ALIASES_FILE"
 
 
 ## Restore working directory
