@@ -37,8 +37,9 @@ elif [ "$1" == "test" ]; then
 	
 elif [ "$1" == "cache" ]; then
 
+	sudo zzxdebug off
 	symfony console cache:clear
-	clear
+	sudo zzxdebug on
 	
 else
 
