@@ -20,7 +20,7 @@ if [ "$1" == "start" ]; then
 
 	symfony server:stop
 	symfony server:start -d
-	
+
 elif [ "$1" == "stop" ]; then
 
 	symfony proxy:stop
@@ -30,16 +30,16 @@ elif [ "$1" == "migrate" ]; then
 
 	symfony console make:migration
 	symfony console doctrine:migrations:migrate
-	
+
 elif [ "$1" == "test" ]; then
 
 	php bin/phpunit
-	
+
 elif [ "$1" == "cache" ]; then
 
+	sudo zzxdebug off
 	symfony console cache:clear
-	clear
-	
+	sudo zzxdebug on
 else
 
 	symfony console "$@"
