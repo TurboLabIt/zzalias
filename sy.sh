@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo ""
 
 ## Title printing function
 function printTitle {
