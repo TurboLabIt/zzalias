@@ -9,6 +9,7 @@ Simple commands:
 * `zzhosts`: alias for `sudo nano /etc/hosts`
 * `zzalias`: a complete workflow to edit and run your `.bash_aliases` (no more logoff/logon!)
 * `zzspacehog`: display top 5 space hog in the current directory
+* `zzcountfiles`: count all the files in the current directory (and its subfolders)
 * `zznetstat`: alias for `sudo netstat -tuanp`. grep on it at will
 * `zzclients`: Number of open connections per IP
 
