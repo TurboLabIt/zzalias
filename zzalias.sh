@@ -14,3 +14,4 @@ alias zzphpsetcli="sudo update-alternatives --set php /usr/bin/php" $1
 alias zzsiege="siege -b -v -r 1 -c 50" $1
 alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzip="curl http://ipinfo.io/ip"
+alias zzreboot="shutdown -r +10"
