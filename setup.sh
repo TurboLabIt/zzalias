@@ -6,7 +6,7 @@ SCRIPT_NAME=zzalias
 
 ## Pre-requisites
 apt update
-apt install git -y
+apt install git pv -y
 
 ## Install directory
 WORKING_DIR_ORIGINAL="$(pwd)"
