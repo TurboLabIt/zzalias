@@ -22,7 +22,6 @@ if [ ! -f ".git/config" ]; then
 	echo "##$(pwd)## is NOT a git dir"
 	echo ""
 	exit
-	
 else
 
 	echo "OK! It's a repo!"
@@ -38,7 +37,7 @@ echo $GITUSER
 printTitle "Checking current user matching"
 CURRENTUSER=$(whoami)
 if [ "$CURRENTUSER" == "$GITUSER" ]; then
-	
+
 	echo "Current user match! No sudo necessary"
 	function zzgitcmd {
 
@@ -55,12 +54,7 @@ else
 fi
 
 
-if [ "$1" == "pull" ]; then
-
-	zzgitcmd pull
-
-
-elif [ "$1" == "push" ]; then
+if [ "$1" == "superpush" ]; then
 
 	printTitle "Display current status"
 	zzgitcmd status
@@ -106,7 +100,7 @@ elif [ "$1" == "flow" ]; then
 		printTitle "🧪 Merging dev into staging..."
 		zzgitcmd merge origin/dev --no-edit
 		zzgitcmd push
-		
+
 		BRANCH_TO_MERGE_INTO_MASTER=origin/staging
 
 	else
@@ -133,7 +127,7 @@ elif [ "$1" == "flow" ]; then
 		echo "Skipping master, you pussy..."
 
 	else
-		
+
 		echo "🤠 Yippee-ki-yay, switching to master..."
 		zzgitcmd checkout master
 		zzgitcmd pull
@@ -146,6 +140,14 @@ elif [ "$1" == "flow" ]; then
 	echo "🤓 Switching back to dev..."
 	zzgitcmd checkout dev
 	zzgitcmd branch
+
+elif [ "$1" == "clean" ]; then
+
+	zzgitcmd repack -a -d --depth=250 --window=250
+
+else
+
+        zzgitcmd $1
 fi
 
 
