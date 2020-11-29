@@ -18,7 +18,7 @@ alias zzreboot="shutdown -r +10"
 
 
 
-function zzzip()
+function zzzippotto()
 {
     zip -qr - . | pv -bep -s $(du -bs . | awk '{print $1}') > ../zippotto.zip
 }
