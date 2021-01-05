@@ -15,7 +15,7 @@ alias zzsiege="siege -b -v -r 1 -c 50" $1
 alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzip="curl http://ipinfo.io/ip"
 alias zzreboot="shutdown -r +10"
-alias zzsync="rsync --archive --compress --delete --partial --progress --verbose ." $1
+alias zzmirrorto="rsync --archive --compress --delete --partial --progress --verbose ." $1
 
 
 function zzzippotto()
