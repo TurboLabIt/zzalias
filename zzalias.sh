@@ -16,6 +16,8 @@ alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzip="curl http://ipinfo.io/ip"
 alias zzreboot="shutdown -r +10"
 alias zzmirrorto="rsync --archive --compress --delete --partial --progress --verbose ." $1
+alias zzdf="df -h | grep -v loop | grep -v tmp | grep -v udev"
+
 
 
 function zzzippotto()
