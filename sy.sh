@@ -39,7 +39,7 @@ elif [ "$1" == "test" ]; then
 elif [ "$1" == "cache" ]; then
 
 	sudo zzxdebug off
-	symfony console cache:clear
+	symfony console cache:clear --no-optional-warmers
 	sudo zzxdebug on
 else
 
