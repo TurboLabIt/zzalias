@@ -29,8 +29,7 @@ elif [ "$1" == "stop" ]; then
 
 elif [ "$1" == "migrate" ]; then
 
-	symfony console make:migration
-	symfony console doctrine:migrations:migrate
+	symfony console doctrine:migrations:migrate --no-interaction
 
 elif [ "$1" == "test" ]; then
 
