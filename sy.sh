@@ -30,6 +30,10 @@ elif [ "$1" == "stop" ]; then
 elif [ "$1" == "migrate" ]; then
 
 	symfony console doctrine:migrations:migrate --no-interaction
+	
+elif [ "$1" == "fixture" ]; then
+
+	symfony console doctrine:fixtures:load --no-interaction
 
 elif [ "$1" == "test" ]; then
 
