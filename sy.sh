@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo ""
+clear
 
 ## Title printing function
 function printTitle {
@@ -31,7 +31,7 @@ elif [ "$1" == "migrate" ]; then
 
 	symfony console doctrine:migrations:migrate --no-interaction
 	
-elif [ "$1" == "fixture" ]; then
+elif [ "$1" == "fixt" ]; then
 
 	symfony console doctrine:fixtures:load --no-interaction
 	
