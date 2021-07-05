@@ -16,10 +16,10 @@ echo $(pwd)
 
 if [ "$1" == "start" ]; then
 
-	symfony proxy:stop
+	XDEBUG_MODE=off symfony proxy:stop
 	symfony proxy:start
 
-	symfony server:stop
+	XDEBUG_MODE=off symfony server:stop
 	symfony server:start -d
 
 elif [ "$1" == "stop" ]; then
