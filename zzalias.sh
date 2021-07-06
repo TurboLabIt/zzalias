@@ -16,7 +16,7 @@ alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzip="curl http://ipinfo.io/ip"
 alias zzreboot="shutdown -r +10"
 alias zzmirrorto="rsync --archive --compress --delete --partial --progress --verbose ." $1
-alias zzmirrorfrom="rsync --archive --compress --delete --partial --progress --verbose $1" .
+alias zzmirrorfrom="rsync --archive --compress --delete --partial --progress --verbose $1 ."
 alias zzdf="df -h | grep -v loop | grep -v tmp | grep -v udev"
 alias zznmap="nmap -T4 -A -p- -v" $1
 
@@ -24,5 +24,5 @@ alias zznmap="nmap -T4 -A -p- -v" $1
 
 function zzzippotto()
 {
-    zip -qr - . | pv -bep -s $(du -bs . | awk '{print $1}') > ../zippotto.zip
+  zip -qr - . | pv -bep -s $(du -bs . | awk '{print $1}') > ../zippotto.zip
 }
