@@ -4,10 +4,10 @@ clear
 ## Title printing function
 function printTitle {
 
-    echo ""
-    echo "$1"
-    printf '%0.s-' $(seq 1 ${#1})
-    echo ""
+  echo ""
+  echo "$1"
+  printf '%0.s-' $(seq 1 ${#1})
+  echo ""
 }
 
 printTitle "zzsy"
@@ -16,43 +16,44 @@ echo $(pwd)
 
 if [ "$1" == "start" ]; then
 
-	XDEBUG_MODE=off symfony proxy:stop
-	symfony proxy:start
+  XDEBUG_MODE=off symfony proxy:stop
+  symfony proxy:start
 
-	XDEBUG_MODE=off symfony server:stop
-	symfony server:start -d
+  XDEBUG_MODE=off symfony server:stop
+  symfony server:start -d
 
 elif [ "$1" == "stop" ]; then
 
-	XDEBUG_MODE=off symfony proxy:stop
-	XDEBUG_MODE=off symfony server:stop
+  XDEBUG_MODE=off symfony proxy:stop
+  XDEBUG_MODE=off symfony server:stop
 
 elif [ "$1" == "migrate" ]; then
 
-	XDEBUG_MODE=off symfony console doctrine:migrations:migrate --no-interaction
-	
+  XDEBUG_MODE=off symfony console doctrine:migrations:migrate --no-interaction
+
 elif [ "$1" == "fixt" ]; then
 
-	XDEBUG_MODE=off symfony console doctrine:fixtures:load --no-interaction
-	
+  XDEBUG_MODE=off symfony console doctrine:fixtures:load --no-interaction
+
 elif [ "$1" == "dropdb" ]; then
 
-	XDEBUG_MODE=off symfony console --env=dev doctrine:schema:drop --force && symfony console doctrine:migrations:migrate --no-interaction
+  XDEBUG_MODE=off symfony console --env=dev doctrine:schema:drop --force && symfony console doctrine:migrations:migrate --no-interaction
 
 elif [ "$1" == "test" ]; then
 
-	XDEBUG_MODE=off php bin/phpunit
+  XDEBUG_MODE=off php bin/phpunit
 
 elif [ "$1" == "cache" ]; then
 
-	XDEBUG_MODE=off symfony console cache:clear --no-optional-warmers
-	
-elif [ "$1" == "comp" ]; then
+  XDEBUG_MODE=off symfony console cache:clear --no-optional-warmers
 
-	XDEBUG_MODE=off symfony composer "$@"
+elif [ "$1" == "co" ]; then
+
+  XDEBUG_MODE=off symfony composer ${@:2}
+
 else
 
-	symfony console "$@"
+  symfony console "$@"
 fi
 
 echo ""
