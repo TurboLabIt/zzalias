@@ -41,7 +41,22 @@ elif [ "$1" == "dropdb" ]; then
 
 elif [ "$1" == "test" ]; then
 
-  XDEBUG_MODE=off php bin/phpunit
+  echo "🧪 OK, testing.."
+  
+  if [ -f "bin/phpunit" ]; then
+
+    XDEBUG_MODE=off php bin/phpunit ${@:2}
+    
+  elif [ -f "vendor/bin/simple-phpunit" ]; then
+  
+    XDEBUG_MODE=off ./vendor/bin/simple-phpunit ${@:2}
+    
+  else
+  
+    echo "💀 No cmd found. Install it with:"
+    echo "sy co require symfony/phpunit-bridge --dev"
+  
+  fi
 
 elif [ "$1" == "cache" ]; then
 
