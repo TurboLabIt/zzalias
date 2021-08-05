@@ -37,7 +37,7 @@ elif [ "$1" == "fixt" ]; then
 
 elif [ "$1" == "dropdb" ]; then
 
-  XDEBUG_MODE=off symfony console --env=dev doctrine:schema:drop --force && symfony console doctrine:migrations:migrate --no-interaction
+  XDEBUG_MODE=off symfony console --env=dev doctrine:schema:drop --force --full-database  && symfony console doctrine:migrations:migrate --no-interaction
 
 elif [ "$1" == "test" ]; then
 
