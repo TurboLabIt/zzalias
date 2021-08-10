@@ -45,11 +45,11 @@ elif [ "$1" == "test" ]; then
   
   if [ -f "bin/phpunit" ]; then
 
-    XDEBUG_MODE=off php bin/phpunit ${@:2}
+    php bin/phpunit ${@:2}
     
   elif [ -f "vendor/bin/simple-phpunit" ]; then
   
-    XDEBUG_MODE=off ./vendor/bin/simple-phpunit ${@:2}
+    ./vendor/bin/simple-phpunit ${@:2}
     
   else
   
