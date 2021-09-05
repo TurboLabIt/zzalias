@@ -45,11 +45,11 @@ elif [ "$1" == "test" ]; then
   
   if [ -f "bin/phpunit" ]; then
 
-    php bin/phpunit ${@:2}
+    php bin/phpunit "${@:2}"
     
   elif [ -f "vendor/bin/simple-phpunit" ]; then
   
-    ./vendor/bin/simple-phpunit ${@:2}
+    ./vendor/bin/simple-phpunit "${@:2}"
     
   else
   
@@ -64,7 +64,7 @@ elif [ "$1" == "cache" ]; then
 
 elif [ "$1" == "co" ]; then
 
-  XDEBUG_MODE=off symfony composer ${@:2}
+  XDEBUG_MODE=off symfony composer "${@:2}"
 
 else
 
