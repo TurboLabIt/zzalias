@@ -19,6 +19,7 @@ alias zzmirrorto="rsync --archive --compress --delete --partial --progress --ver
 alias zzmirrorfrom="rsync --archive --compress --delete --partial --progress --verbose $1 ."
 alias zzdf="df -h | grep -v loop | grep -v tmp | grep -v udev | grep -v /boot/efi"
 alias zznmap="nmap -T4 -A -p- -v" $1
+alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
 
 
 
