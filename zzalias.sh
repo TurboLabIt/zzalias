@@ -43,5 +43,5 @@ function zzmirrorfrom()
 
 function zzdock()
 {
-  docker exec -it $1 bash
+  sudo docker exec -it $1 bash
 }
