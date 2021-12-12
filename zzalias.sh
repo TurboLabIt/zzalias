@@ -40,9 +40,3 @@ function zzmirrorfrom()
   rsync --archive --compress --delete --partial --progress --verbose $1 .
 }
 
-
-function zzdock()
-{
-  sudo docker exec -it $1 bash
-}
-
