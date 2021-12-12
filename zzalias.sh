@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+echo -e "\e[1;34m ZZALIAS IS ON \e[0m"
+
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
 alias zzuntar="tar -zxvf"
 alias zzweb="sudo -u www-data -H bash"
@@ -15,15 +18,30 @@ alias zzsiege="siege -b -v -r 1 -c 50"
 alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzip="curl http://ipinfo.io/ip"
 alias zzreboot="shutdown -r +10"
-alias zzmirrorto="rsync --archive --compress --delete --partial --progress --verbose ."
-alias zzmirrorfrom="rsync --archive --compress --delete --partial --progress --verbose $1 ."
 alias zzdf="df -h | grep -v loop | grep -v tmp | grep -v udev | grep -v /boot/efi"
 alias zznmap="nmap -T4 -A -p- -v"
 alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
 
 
-
 function zzzippotto()
 {
   zip -qr - . | pv -bep -s $(du -bs . | awk '{print $1}') > ../zippotto.zip
+}
+
+
+function zzmirrorto()
+{
+  rsync --archive --compress --delete --partial --progress --verbose . $1
+}
+
+
+function zzmirrorfrom()
+{
+  rsync --archive --compress --delete --partial --progress --verbose $1 .
+}
+
+
+function zzdock()
+{
+  docker exec -it $1 bash
 }
