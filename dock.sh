@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-echo ""
 
 ## Title printing function
 function printTitle {
@@ -11,8 +10,6 @@ function printTitle {
 }
 
 printTitle "zzdock"
-echo $(pwd)
-
 
 if [ "$1" == "start" ]; then
 
