@@ -25,7 +25,7 @@ elif [ "$1" == "stop" ]; then
 else
 
   printTitle "Attaching to $1..."
-  sudo docker -it $1 bash
+  sudo docker exec -it $1 bash
 fi
 
 echo ""
