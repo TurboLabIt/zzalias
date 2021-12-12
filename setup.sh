@@ -73,10 +73,16 @@ if [ ! -e "/usr/bin/sy" ]; then
 fi
 
 
+## Command: dock
+if [ ! -e "/usr/bin/dock" ]; then
+
+  ln -s ${INSTALL_DIR}dock.sh /usr/bin/dock
+fi
+
+
 ## Other one-liners as aliases
 if [ "$(logname)" != "root" ]; then
 
-  
   ALIASES_FILE=/home/$(logname)/.bash_aliases
   
 else
