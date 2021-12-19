@@ -45,38 +45,45 @@ if [ ! -f "/etc/turbolab.it/zzcd_bookmarks.sh" ]; then
 fi
 
 
+## Command: ZZALIAS - Allows zzalias do be loaded manually
+if [ ! -e "/usr/bin/zzalias" ]; then
+  ln -s ${INSTALL_DIR}zzalias.sh /usr/bin/zzalias
+fi
+
+
+## Command: ZZCD
+if [ ! -e "/usr/bin/zzcd" ]; then
+  ln -s ${INSTALL_DIR}zzcd.sh /usr/bin/zzcd
+fi
+
+
 ## Command: ZZGIT
 if [ ! -e "/usr/bin/zzgit" ]; then
-
   ln -s ${INSTALL_DIR}zzgit.sh /usr/bin/zzgit
 fi
 
 
 ## Command: ZZWS
 if [ ! -e "/usr/bin/zzws" ]; then
-
   ln -s ${INSTALL_DIR}zzws.sh /usr/bin/zzws
 fi
 
 
 ## Command: ZZXDEBUG
 if [ ! -e "/usr/bin/zzxdebug" ]; then
-
   ln -s ${INSTALL_DIR}zzxdebug.sh /usr/bin/zzxdebug
 fi
 
 
 ## Command: sy
 if [ ! -e "/usr/bin/sy" ]; then
-
   ln -s ${INSTALL_DIR}sy.sh /usr/bin/sy
 fi
 
 
 ## Command: dock
 if [ ! -e "/usr/bin/dock" ]; then
-
-  ln -s ${INSTALL_DIR}dock.sh /usr/bin/dock
+  ln -s ${INSTALL_DIR}dock.sh /usr/bin/zzdock
 fi
 
 
@@ -91,9 +98,7 @@ else
 fi
 
 
-
 if [ ! -f "$ALIASES_FILE" ]; then
-
   echo "#!/usr/bin/env bash" >> "$ALIASES_FILE"
 fi
 
