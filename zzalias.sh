@@ -2,7 +2,6 @@
 
 echo -e "\e[1;34m ZZALIAS IS ON \e[0m"
 
-alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
 alias zzuntar="tar -zxvf"
 alias zzweb="sudo -u www-data -H bash"
 alias zzssh="sudo nano $HOME/.ssh/config"
