@@ -82,7 +82,7 @@ fi
 
 
 ## Command: dock
-if [ ! -e "/usr/bin/dock" ]; then
+if [ ! -e "/usr/bin/zzdock" ]; then
   ln -s ${INSTALL_DIR}dock.sh /usr/bin/zzdock
 fi
 
