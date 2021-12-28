@@ -21,6 +21,7 @@ if [ "$1" == "start" ]; then
 
   XDEBUG_MODE=off symfony server:stop
   symfony server:start -d
+  XDEBUG_MODE=off symfony console cache:clear --no-optional-warmers
 
 elif [ "$1" == "stop" ]; then
 
