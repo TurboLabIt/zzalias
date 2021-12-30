@@ -4,7 +4,7 @@ echo -e "\e[1;34m ZZALIAS IS ON \e[0m"
 
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
 alias zzuntar="tar -zxvf"
-alias zzweb="sudo -u www-data -H bash"
+alias zzsudoweb="sudo -u www-data -H bash"
 alias zzssh="sudo nano $HOME/.ssh/config"
 alias zzhost="sudo nano /etc/hosts"
 alias zzalias="sudo nano $HOME/.bash_aliases && sudo chmod ug=rwx $HOME/.bash_aliases && source $HOME/.bash_aliases"
@@ -39,4 +39,3 @@ function zzmirrorfrom()
 {
   rsync --archive --compress --delete --partial --progress --verbose $1 .
 }
-
