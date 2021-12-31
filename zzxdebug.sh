@@ -77,4 +77,4 @@ done
 
 
 printTitle "Operation completed"
-echo ""
+echo "OK"
