@@ -24,6 +24,7 @@ alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timeda
 function zzclients()
 {
   netstat -antu | grep ':80\|:443' | grep -v LISTEN | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn
+  echo ""
   echo -n "Total clients: "
   netstat -antu | grep ':80\|:443' | grep -v LISTEN | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn | wc -l
 }
