@@ -20,6 +20,7 @@ alias zzreboot="shutdown -r +10"
 alias zzdf="df -h | grep -v loop | grep -v tmp | grep -v udev | grep -v /boot/efi"
 alias zznmap="nmap -T4 -A -p- -v"
 alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
+alias zznetstat="sudo netstat -antup"
 
 function zzclients()
 {
