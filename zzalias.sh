@@ -11,7 +11,7 @@ alias zzalias="sudo nano $HOME/.bash_aliases && sudo chmod ug=rwx $HOME/.bash_al
 alias zzspacehog="du -hs * | sort -rh | head -5"
 alias zzcountfiles="find . -type f | wc -l"
 alias zzsize="sudo du -sh"
-alias zzports="sudo netstat -tuanp"
+alias zzports="sudo netstat -putan"
 alias zzphpsetcli="sudo update-alternatives --set php /usr/bin/php"
 alias zzsiege="siege -b -v -r 1 -c 50"
 alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
