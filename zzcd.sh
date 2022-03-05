@@ -7,8 +7,7 @@ SCRIPT_NAME=zzcd
 
 ##
 if [ -z "$(command -v dialog)" ]; then
-
-	sudo apt install dialog -y -qq
+  sudo apt install dialog -y -qq
 fi
 
 
@@ -28,16 +27,14 @@ CONFIGFILE_FULLPATH_DIR=${SCRIPT_DIR}$CONFIGFILE_NAME
 
 for CONFIGFILE_FULLPATH in "$CONFIGFILE_FULLPATH_DEFAULT" "$CONFIGFILE_FULLPATH_ETC" "$CONFIGFILE_FULLPATH_DIR"
 do
-	if [ "$1" == "edit" ] && [ -f "$CONFIGFILE_FULLPATH" ] && [ "$CONFIGFILE_FULLPATH" != "$CONFIGFILE_FULLPATH_DEFAULT" ]; then
-	
-		sudo nano "$CONFIGFILE_FULLPATH"
-	fi
-	
+  if [ "$1" == "edit" ] && [ -f "$CONFIGFILE_FULLPATH" ] && [ "$CONFIGFILE_FULLPATH" != "$CONFIGFILE_FULLPATH_DEFAULT" ]; then
+    sudo nano "$CONFIGFILE_FULLPATH"
+  fi
 
-	if [ -f "$CONFIGFILE_FULLPATH" ]; then
-	
-		source "$CONFIGFILE_FULLPATH"
-	fi
+  if [ -f "$CONFIGFILE_FULLPATH" ]; then
+    source "$CONFIGFILE_FULLPATH"
+  fi
+
 done
 
 
@@ -50,16 +47,17 @@ TITLE="Quick folder selector"
 MENU="Choose your location:"
 
 CHOICE=$(dialog --clear \
-				--backtitle "$BACKTITLE" \
-				--title "$TITLE" \
-				--menu "$MENU" \
-				$HEIGHT $WIDTH $CHOICE_HEIGHT \
-				"${ZZCD_BOOKMARKS[@]}" \
-				2>&1 >/dev/tty)
+  --backtitle "$BACKTITLE" \
+  --title "$TITLE" \
+  --menu "$MENU" \
+  $HEIGHT $WIDTH $CHOICE_HEIGHT \
+  "${ZZCD_BOOKMARKS[@]}" \
+  2>&1 >/dev/tty)
 
 clear
+
 if [ ! -z "$CHOICE" ]; then
 
-	cd "$CHOICE" && pwd && ls -lah --color=auto
-	cd "$CHOICE"
+  cd "$CHOICE" && pwd && ls -lah --color=auto
+  cd "$CHOICE"
 fi
