@@ -80,6 +80,10 @@ if [ ! -e "/usr/bin/zzdock" ]; then
   ln -s ${INSTALL_DIR}dock.sh /usr/bin/zzdock
 fi
 
+## Command: lll
+if [ ! -e "/usr/bin/lll" ]; then
+  ln -s ${INSTALL_DIR}lll.sh /usr/bin/lll
+fi
 
 ## Other one-liners as aliases
 if [ "$(logname)" != "root" ]; then
