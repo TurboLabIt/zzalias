@@ -19,7 +19,7 @@ alias zzdf="df -h | grep -v loop | grep -v tmp | grep -v udev | grep -v /boot/ef
 alias zznmap="nmap -T4 -A -p- -v"
 alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
 alias zzports="sudo netstat -putan"
-alias zzclearhistory="cat /dev/null > ~/.bash_history && history -c && exit"
+alias zzclearhistory="history -c && history -w"
 
 function zzclients()
 {
