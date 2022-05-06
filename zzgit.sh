@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ## Title printing function
-function printTitle {
-
+function printTitle
+{
   echo ""
   echo "$1"
   printf '%0.s-' $(seq 1 ${#1})
@@ -104,6 +104,7 @@ elif [ "$1" == "flow" ]; then
     BRANCH_TO_MERGE_INTO_MASTER=origin/staging
 
   else
+
     read -p "☠️  Branch staging doesn't exists! Proceed anyway?" -n 1 -r
     echo
     echo
@@ -112,11 +113,12 @@ elif [ "$1" == "flow" ]; then
       printTitle "☠️  OK, quitting!"
       echo ""
       exit
+    
     else
       BRANCH_TO_MERGE_INTO_MASTER=$(zzgitcmd rev-parse --abbrev-ref --symbolic-full-name @{u})
     fi
+  
   fi
-
 
   echo
   read -p "🤠 Merge to master?  " -n 1 -r
@@ -147,9 +149,8 @@ elif [ "$1" == "clean" ]; then
 
 else
 
-    zzgitcmd $1
+  zzgitcmd $1
 fi
-
 
 printTitle "Operation completed"
 echo ""
