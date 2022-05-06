@@ -75,7 +75,7 @@ if [ "$1" == "superpush" ]; then
   zzgitcmd commit --allow-empty-message -m "${2}"
 
   printTitle "Git pull"
-  zzgitcmd pull --no-rebase
+  zzgitcmd pull --no-rebase --no-edit
 
   printTitle "Git push"
   zzgitcmd push
@@ -87,7 +87,7 @@ elif [ "$1" == "flow" ]; then
   zzgitcmd fetch --all
 
   printTitle "🤓 Pulling and pushing from the current branch..."
-  zzgitcmd pull --no-rebase
+  zzgitcmd pull --no-rebase --no-edit
   zzgitcmd push
 
 
@@ -95,7 +95,7 @@ elif [ "$1" == "flow" ]; then
 
     printTitle "🧪 Switching to staging..."
     zzgitcmd checkout staging
-    zzgitcmd pull
+    zzgitcmd pull --no-rebase --no-edit
 
     printTitle "🧪 Merging dev into staging..."
     zzgitcmd merge origin/dev --no-edit
@@ -132,7 +132,7 @@ elif [ "$1" == "flow" ]; then
 
     echo "🤠 Yippee-ki-yay, switching to master..."
     zzgitcmd checkout master
-    zzgitcmd pull
+    zzgitcmd pull --no-rebase --no-edit
 
     echo "🤠 Merging $BRANCH_TO_MERGE_INTO_MASTER into master..."
     zzgitcmd merge $BRANCH_TO_MERGE_INTO_MASTER --no-edit
