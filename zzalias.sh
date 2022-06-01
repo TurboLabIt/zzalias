@@ -56,3 +56,9 @@ journalctl --list-boots | \
     xargs -I{} journalctl --utc --no-pager -b {} -kqg 'killed process' -o verbose --output-fields=MESSAGE
 
 }
+
+
+function zzhttps()
+{
+  curl --insecure -vvI "https://$1" 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'
+}
