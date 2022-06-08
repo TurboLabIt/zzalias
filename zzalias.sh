@@ -20,7 +20,7 @@ alias zznmap="nmap -T4 -A -p- -v"
 alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
 alias zzports="sudo netstat -putan"
 alias zzclearhistory="history -c && history -w"
-alias zzflush="echo 'DNS Flusing...' && sudo systemd-resolve --flush-caches"
+alias zzwifi="nmcli dev wifi"
 
 function zzclients()
 {
