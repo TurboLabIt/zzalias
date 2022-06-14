@@ -21,6 +21,8 @@ alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timeda
 alias zzports="sudo netstat -putan"
 alias zzclearhistory="history -c && history -w"
 alias zzwifi="nmcli dev wifi"
+alias zzdns="resolvectl flush-caches"
+
 
 function zzclients()
 {
