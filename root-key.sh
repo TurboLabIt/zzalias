@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# sudo apt install curl -y && curl -s https://raw.githubusercontent.com/TurboLabIt/zzalias/master/root-key.sh?$(date +%s) | sudo bash
 
 if ! [ $(id -u) = 0 ]; then
   echo ""
