@@ -28,19 +28,8 @@ fxLinkBin ${INSTALL_DIR}sy.sh
 fxLinkBin ${INSTALL_DIR}dock.sh zzdock
 fxLinkBin ${INSTALL_DIR}lll.sh
 
-## zzalias for current, non-root user
-if [ "$(logname)" != "root" ]; then 
-  ALIASES_FILE=/home/$(logname)/.bash_aliases
-  zzaliasLink "$ALIASES_FILE"
-fi
 
-## zzalias for root
-ALIASES_FILE=/root/.bash_aliases
-zzaliasLink "$ALIASES_FILE"
-
-source "$ALIASES_FILE"
-
-
+## 
 function zzaliasLink()
 {
   local ALIASES_FILE=$1
@@ -61,5 +50,18 @@ function zzaliasLink()
   chmod ug=rwx,o=rx "$ALIASES_FILE"
 }
 
+
+## zzalias for current, non-root user
+if [ "$(logname)" != "root" ]; then 
+  ALIASES_FILE=/home/$(logname)/.bash_aliases
+  zzaliasLink "$ALIASES_FILE"
+fi
+
+## zzalias for root
+ALIASES_FILE=/root/.bash_aliases
+zzaliasLink "$ALIASES_FILE"
+
+
+source "${INSTALL_DIR}${SCRIPT_NAME}.sh"
 
 sudo bash /usr/local/turbolab.it/bash-fx/setup/the-end.sh ${SCRIPT_NAME}
