@@ -61,7 +61,4 @@ fi
 ALIASES_FILE=/root/.bash_aliases
 zzaliasLink "$ALIASES_FILE"
 
-
-source "${INSTALL_DIR}${SCRIPT_NAME}.sh"
-
 sudo bash /usr/local/turbolab.it/bash-fx/setup/the-end.sh ${SCRIPT_NAME}
