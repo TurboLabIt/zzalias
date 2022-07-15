@@ -1,43 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo ""
-
-## Script name
 SCRIPT_NAME=zzalias
 
-## Install directory
-WORKING_DIR_ORIGINAL="$(pwd)"
-INSTALL_DIR_PARENT="/usr/local/turbolab.it/"
-INSTALL_DIR=${INSTALL_DIR_PARENT}${SCRIPT_NAME}/
+## bash-fx
+if [ -z $(command -v curl) ]; then sudo apt update && sudo apt install curl -y; fi
+curl -s https://raw.githubusercontent.com/TurboLabIt/bash-fx/master/setup.sh?$(date +%s) | sudo bash
+source /usr/local/turbolab.it/bash-fx/bash-fx.sh
+## bash-fx is ready
 
-## /etc/ config directory
-mkdir -p "/etc/turbolab.it/"
-
-## Install/update
-echo ""
-if [ ! -d "$INSTALL_DIR" ]; then
-
-  ## Pre-requisites
-  apt update && apt install git pv -y
-
-  echo "Installing..."
-  echo "-------------"
-  mkdir -p "$INSTALL_DIR_PARENT"
-  cd "$INSTALL_DIR_PARENT"
-  git clone https://github.com/TurboLabIt/${SCRIPT_NAME}.git
-  
-else
-
-  echo "Updating..."
-  echo "----------"
-  
-fi
-
-## Fetch & pull new code
-cd "$INSTALL_DIR"
-git pull
+sudo bash /usr/local/turbolab.it/bash-fx/setup/start.sh ${SCRIPT_NAME}
+sudo apt update && sudo apt install git pv -y
+fxLinkBin ${INSTALL_DIR}${SCRIPT_NAME}.sh
 
 if [ ! -f "/etc/turbolab.it/zzcd_bookmarks.sh" ]; then
-
   echo "## This is your zzcd file! Edit away and make it truly yours!" > "/etc/turbolab.it/zzcd_bookmarks.sh"
   echo "#"  >> "/etc/turbolab.it/zzcd_bookmarks.sh"
   echo "# Pro-tip: open this file quickly with one command: zzcd edit" >> "/etc/turbolab.it/zzcd_bookmarks.sh"
@@ -46,73 +21,45 @@ if [ ! -f "/etc/turbolab.it/zzcd_bookmarks.sh" ]; then
   echo "$CONFIG_CONTENT" >> "/etc/turbolab.it/zzcd_bookmarks.sh"
 fi
 
-## Command: ZZALIAS - Allows zzalias do be loaded manually
-if [ ! -e "/usr/bin/zzalias" ]; then
-  ln -s ${INSTALL_DIR}zzalias.sh /usr/bin/zzalias
-fi
+fxLinkBin ${INSTALL_DIR}zzgit.sh
+fxLinkBin ${INSTALL_DIR}zzws.sh
+fxLinkBin ${INSTALL_DIR}zzxdebug.sh
+fxLinkBin ${INSTALL_DIR}sy.sh
+fxLinkBin ${INSTALL_DIR}dock.sh zzdock
+fxLinkBin ${INSTALL_DIR}lll.sh
 
-## Command: ZZGIT
-if [ ! -e "/usr/bin/zzgit" ]; then
-  ln -s ${INSTALL_DIR}zzgit.sh /usr/bin/zzgit
-fi
-
-## Command: ZZWS
-if [ ! -e "/usr/bin/zzws" ]; then
-  ln -s ${INSTALL_DIR}zzws.sh /usr/bin/zzws
-fi
-
-## Command: ZZXDEBUG
-if [ ! -e "/usr/bin/zzxdebug" ]; then
-  ln -s ${INSTALL_DIR}zzxdebug.sh /usr/bin/zzxdebug
-fi
-
-## Command: sy
-if [ ! -e "/usr/bin/sy" ]; then
-  ln -s ${INSTALL_DIR}sy.sh /usr/bin/sy
-fi
-
-## Command: dock
-if [ ! -e "/usr/bin/zzdock" ]; then
-  ln -s ${INSTALL_DIR}dock.sh /usr/bin/zzdock
-fi
-
-## Command: lll
-if [ ! -e "/usr/bin/lll" ]; then
-  ln -s ${INSTALL_DIR}lll.sh /usr/bin/lll
-fi
-
-## Other one-liners as aliases
-if [ "$(logname)" != "root" ]; then
-
+## zzalias for current, non-root user
+if [ "$(logname)" != "root" ]; then 
   ALIASES_FILE=/home/$(logname)/.bash_aliases
-  
-else
-
-  ALIASES_FILE=/root/.bash_aliases
-  
+  zzaliasLink "$ALIASES_FILE"
 fi
 
-if [ ! -f "$ALIASES_FILE" ]; then
-  echo "#!/usr/bin/env bash" >> "$ALIASES_FILE"
-fi
+## zzalias for root
+ALIASES_FILE=/root/.bash_aliases
+zzaliasLink "$ALIASES_FILE"
 
-if grep -q zzalias "$ALIASES_FILE"; then
-
-  echo "$ALIASES_FILE was already patched"
-  
-else
-
-  echo "source ${INSTALL_DIR}${SCRIPT_NAME}.sh" >> "$ALIASES_FILE"
-  echo "$ALIASES_FILE has now been patched"
-fi
-  
-chmod ug=rwx,o=rx "$ALIASES_FILE"
 source "$ALIASES_FILE"
 
-## Restore working directory
-cd $WORKING_DIR_ORIGINAL
 
-echo ""
-echo "Setup completed!"
-echo "----------------"
-echo "See https://github.com/TurboLabIt/${SCRIPT_NAME} for the quickstart guide."
+function zzaliasLink()
+{
+  local ALIASES_FILE=$1
+  
+  fxTitle "Activating ${SCRIPT_NAME} on ${ALIASES_FILE}..."
+  
+  if [ ! -f "$ALIASES_FILE" ]; then
+    echo "#!/usr/bin/env bash" >> "$ALIASES_FILE"
+  fi
+  
+  if grep -q zzalias "$ALIASES_FILE"; then
+    echo "$ALIASES_FILE was already patched"
+  else
+    echo "source ${INSTALL_DIR}${SCRIPT_NAME}.sh" >> "$ALIASES_FILE"
+    echo "$ALIASES_FILE has now been patched"
+  fi
+  
+  chmod ug=rwx,o=rx "$ALIASES_FILE"
+}
+
+
+sudo bash /usr/local/turbolab.it/bash-fx/setup/the-end.sh ${SCRIPT_NAME}
