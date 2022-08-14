@@ -23,6 +23,7 @@ alias zzclearhistory="history -c && history -w"
 alias zzwifi="nmcli dev wifi"
 alias zzdns="resolvectl flush-caches"
 alias zzeos="hwe-support-status --verbose && ubuntu-security-status"
+alias zzbios="sudo systemctl reboot --firmware-setup"
 
 
 function zzclients()
