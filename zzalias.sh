@@ -55,8 +55,8 @@ function zzmirrorto()
   fxTitle "⏫ Mirroring!"
   echo "From: $(pwd)"
   echo "To:   ${REMOTE_PATH}"
-  sleep 15
-  
+  fxCountdown
+
   rsync --archive --compress --delete --partial --progress --verbose . "${REMOTE_PATH}"
 }
 
@@ -76,7 +76,7 @@ function zzmirrorfrom()
   fxTitle "⏬ Mirroring!"
   echo "From: ${REMOTE_PATH}"
   echo "To:   $(pwd)"
-  sleep 10
+  fxCountdown
 
   rsync --archive --compress --delete --partial --progress --verbose "${REMOTE_PATH}" .
 }
