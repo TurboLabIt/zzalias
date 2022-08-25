@@ -56,13 +56,18 @@ function zzmirrorfrom()
     fxCatastrophicError "Please provide the source!"
   fi
 
-  if[[ "${$1}/" == */ ]]; then
-    local REMOTE_PATH=$1
-  else
-    local REMOTE_PATH=${1}/
+  local REMOTE_PATH=${1}
+
+  if [[ "${REMOTE_PATH}" != */ ]]; then
+    local REMOTE_PATH=${REMOTE_PATH}/
   fi
-  
-  rsync --archive --compress --delete --partial --progress --verbose ${REMOTE_PATH} .
+
+  fxTitle "⏬ Mirroring!"
+  echo "From: ${REMOTE_PATH}"
+  echo "To:   $(pwd)"
+  sleep 10
+
+  rsync --archive --compress --delete --partial --progress --verbose "${REMOTE_PATH}" .
 }
 
 
