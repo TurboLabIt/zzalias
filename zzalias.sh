@@ -2,6 +2,8 @@
 
 echo -e "\e[1;34m ZZALIAS IS ON \e[0m"
 
+source /usr/local/turbolab.it/bash-fx/bash-fx.sh
+
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
 alias zzuntar="tar -zxvf"
 alias zzsudoweb="sudo -u www-data -H bash"
@@ -50,7 +52,17 @@ function zzmirrorto()
 
 function zzmirrorfrom()
 {
-  rsync --archive --compress --delete --partial --progress --verbose $1 .
+  if [ -z "${1}" ]; then
+    fxCatastrophicError "Please provide the source!"
+  fi
+
+  if[[ "${$1}/" == */ ]]; then
+    local REMOTE_PATH=$1
+  else
+    local REMOTE_PATH=${1}/
+  fi
+  
+  rsync --archive --compress --delete --partial --progress --verbose ${REMOTE_PATH} .
 }
 
 
