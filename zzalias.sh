@@ -46,7 +46,18 @@ function zzzippotto()
 
 function zzmirrorto()
 {
-  rsync --archive --compress --delete --partial --progress --verbose . $1
+  if [ -z "${1}" ]; then
+    fxCatastrophicError "Please provide the destination!"
+  fi
+
+  local REMOTE_PATH=${1}
+
+  fxTitle "⏫ Mirroring!"
+  echo "From: $(pwd)"
+  echo "To:   ${REMOTE_PATH}"
+  sleep 15
+  
+  rsync --archive --compress --delete --partial --progress --verbose . "${REMOTE_PATH}"
 }
 
 
