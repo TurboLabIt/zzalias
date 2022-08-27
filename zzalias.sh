@@ -3,7 +3,7 @@
 source /usr/local/turbolab.it/bash-fx/bash-fx.sh
 
 echo ""
-echo -e "\e[1;34mℹ️ zzalias enabled\e[0m"
+fxInfo "zzalias enabled"
 
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
 alias zzuntar="tar -zxvf"
