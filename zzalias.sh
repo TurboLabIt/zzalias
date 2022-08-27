@@ -2,7 +2,9 @@
 
 source /usr/local/turbolab.it/bash-fx/bash-fx.sh
 
-fxTitle "💡 ZZALIAS IS ON"
+echo ""
+echo -e "\e[1;34m💡 ZZALIAS IS ON\e[0m"
+echo -e "\e[1;34m----------------\e[0m"
 
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
 alias zzuntar="tar -zxvf"
