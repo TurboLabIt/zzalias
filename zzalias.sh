@@ -32,7 +32,7 @@ function zzdf()
 {
   df -h | grep -v 'loop\|tmp\|udev\|/boot/efi'
   echo -e "\e[1;34m---------------------------\e[0m"
-  lsblk | grep -v loop"
+  lsblk | grep -v loop
   echo -e "\e[1;34m---------------------------\e[0m"
   findmnt | grep 'ext\|btrfs\|ntfs'
 }
