@@ -2,14 +2,16 @@
 echo ""
 SCRIPT_NAME=zzalias
 
+if [ -z $(command -v curl) ] || [ -z $(command -v git) ] || [ -z $(command -v pv) ]; then
+  sudo apt update && sudo apt install curl git pv -y
+fi
+
 ## bash-fx
-if [ -z $(command -v curl) ]; then sudo apt update && sudo apt install curl -y; fi
 curl -s https://raw.githubusercontent.com/TurboLabIt/bash-fx/master/setup.sh?$(date +%s) | sudo bash
 source /usr/local/turbolab.it/bash-fx/bash-fx.sh
 ## bash-fx is ready
 
 sudo bash /usr/local/turbolab.it/bash-fx/setup/start.sh ${SCRIPT_NAME}
-sudo apt update && sudo apt install git pv -y
 fxLinkBin ${INSTALL_DIR}${SCRIPT_NAME}.sh
 
 if [ ! -f "/etc/turbolab.it/zzcd_bookmarks.sh" ]; then
@@ -29,7 +31,7 @@ fxLinkBin ${INSTALL_DIR}dock.sh zzdock
 fxLinkBin ${INSTALL_DIR}lll.sh
 
 
-## 
+##
 function zzaliasLink()
 {
   local ALIASES_FILE=$1
