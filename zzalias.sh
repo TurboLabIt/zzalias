@@ -18,7 +18,6 @@ alias zzphpsetcli="sudo update-alternatives --set php /usr/bin/php"
 alias zzsiege="siege -b -v -r 1 -c 50"
 alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzmyip="curl http://ipinfo.io/ip"
-alias zzdf="df -h | grep -v loop | grep -v tmp | grep -v udev | grep -v /boot/efi && printf '%s\n' -------------------- && lsblk | grep -v loop"
 alias zznmap="nmap -T4 -A -p- -v"
 alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
 alias zzports="sudo netstat -putan"
@@ -28,6 +27,15 @@ alias zzdns="resolvectl flush-caches"
 alias zzeos="hwe-support-status --verbose && ubuntu-security-status"
 alias zzbios="sudo systemctl reboot --firmware-setup"
 alias zzkillme="sudo killall -u $(logname)"
+
+function zzdf()
+{
+  df -h | grep -v 'loop\|tmp\|udev\|/boot/efi'
+  echo -e "\e[1;34m---------------------------\e[0m"
+  lsblk | grep -v loop"
+  echo -e "\e[1;34m---------------------------\e[0m"
+  findmnt | grep 'ext\|btrfs\|ntfs'
+}
 
 
 function zzclients()
