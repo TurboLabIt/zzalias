@@ -30,7 +30,7 @@ alias zzkillme="sudo killall -u $(logname)"
 
 function zzdf()
 {
-  df -h | grep -v 'loop\|tmp\|udev\|/boot/efi'
+  df -h | grep -v 'loop\|tmp\|udev\|/boot/efi' | grep -v 'sr.*rom'
   echo -e "\e[1;34m---------------------------\e[0m"
   lsblk | grep -v loop
   echo -e "\e[1;34m---------------------------\e[0m"
