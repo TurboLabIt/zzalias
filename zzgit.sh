@@ -53,7 +53,7 @@ else
   }
 fi
 
-zzgitcmd config --global --add safe.directory .
+zzgitcmd config --global --add safe.directory "$(pwd)"
 
 if [ "$1" == "superpush" ]; then
 
