@@ -53,6 +53,7 @@ else
   }
 fi
 
+zzgitcmd config --global --add safe.directory .
 
 if [ "$1" == "superpush" ]; then
 
