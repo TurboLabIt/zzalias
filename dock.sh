@@ -27,7 +27,7 @@ if [ -z "$1" ]; then
   fxTitle "🐋 Containers"
   sudo docker container ls --all
   
-elif [ "$1" = "testbuild" ]; then
+elif [ "$1" = "testimg" ]; then
   
   fxTitle "👷‍♂️ Building a test image"
   
