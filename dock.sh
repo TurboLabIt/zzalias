@@ -27,6 +27,17 @@ if [ -z "$1" ]; then
   fxTitle "🐋 Containers"
   sudo docker container ls --all
   
+elif [ "$1" = "start" ]; then
+    
+  fxTitle "🚪 Start+attach an existing container"
+  
+  if [ -z "$2" ]; then
+    fxCatastrophicError "Provide the container name: zzdock start container-name"
+  fi
+  
+  sudo docker start "$2"
+  sudo docker exec -it "$2" /bin/sh --login
+  
 elif [ "$1" = "testimg" ]; then
   
   fxTitle "👷‍♂️ Building a test image"
