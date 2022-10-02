@@ -1,29 +1,24 @@
 #!/usr/bin/env bash
 
-## Title printing function
-function printTitle {
+## bash-fx
+if [ -z $(command -v curl) ]; then sudo apt update && sudo apt install curl -y; fi
 
-  echo ""
-  echo "$1"
-  printf '%0.s-' $(seq 1 ${#1})
-  echo ""
-}
-
-printTitle "zzdock"
-
-if [ "$1" == "start" ]; then
-
-  echo "No-op"
-
-elif [ "$1" == "stop" ]; then
-
-  echo "No-op"
-
+if [ -f "/usr/local/turbolab.it/bash-fx/bash-fx.sh" ]; then
+  source "/usr/local/turbolab.it/bash-fx/bash-fx.sh"
 else
+  source <(curl -s https://raw.githubusercontent.com/TurboLabIt/bash-fx/main/bash-fx.sh)
+fi
+## bash-fx is ready
 
-  printTitle "Attaching to $1..."
-  sudo docker exec -it $1 bash
+fxHeader "🐳 Docker"
+
+if [ -z "$1" ]; then
+
+  fxTitle "🖼 Images"
+  sudo docker images --all
+  
+  fxTitle "🐋 Containers"
+  sudo docker container ls --all
 fi
 
-echo ""
-
+fxEndFooter
