@@ -50,10 +50,10 @@ elif [ "$1" = "testimg" ]; then
   sudo docker build --network host -t testimg .
   sudo docker run -it --rm --name=testcntr testimg /bin/sh --login
   
-elif [ "$1" = "alpine" ]; then
+elif [ "$1" = "eph" ]; then
   
-  fxTitle "🗻 Run an ephemeral Alpine instance"
-  sudo docker run --network host -it --rm --name=ephemeral-alpine alpine /bin/sh --login
+  fxTitle "🗻 Run an ephemeral instance"
+  sudo docker run --network host -it --rm --name=ephemeral ubuntu /bin/bash --login
   
 elif [ "$1" = "attach" ]; then
     
