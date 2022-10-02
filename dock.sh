@@ -38,6 +38,12 @@ elif [ "$1" = "testimg" ]; then
   sudo docker rmi "testimg" -f
   sudo docker build --network host -t testimg .
   sudo docker run -it --rm --name=testcntr testimg /bin/sh --login
+  
+elif [ "$1" = "alpine" ]; then
+  
+  fxTitle "🗻 Run an ephemeral Alpine instance"
+  sudo docker run -it --rm --name=ephemeral-alpine alpine /bin/sh --login
+  
 fi
 
 fxEndFooter
