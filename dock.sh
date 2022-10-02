@@ -63,7 +63,7 @@ elif [ "$1" = "attach" ]; then
     fxCatastrophicError "Provide the container name: zzdock attach container-name"
   fi
   
-  sudo docker exec -it "$2" /bin/sh --login
+  sudo docker exec -it "$2" /bin/bash --login
 fi
 
 fxEndFooter
