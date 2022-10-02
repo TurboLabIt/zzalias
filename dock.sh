@@ -42,7 +42,7 @@ elif [ "$1" = "testimg" ]; then
 elif [ "$1" = "alpine" ]; then
   
   fxTitle "🗻 Run an ephemeral Alpine instance"
-  sudo docker run -it --rm --name=ephemeral-alpine alpine /bin/sh --login
+  sudo docker run --network host -it --rm --name=ephemeral-alpine alpine /bin/sh --login
   
 fi
 
