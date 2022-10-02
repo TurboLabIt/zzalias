@@ -26,6 +26,18 @@ if [ -z "$1" ]; then
   
   fxTitle "🐋 Containers"
   sudo docker container ls --all
+  
+elif [ "$1" = "testbuild" ]; then
+  
+  fxTitle "👷‍♂️ Building a test image"
+  
+  if [ ! -f "dockerfile" ]; then
+    fxCatastrophicError "$(pwd)/dockerfile not found!"
+  fi
+  
+  sudo docker rmi "testimg" -f
+  sudo docker build --network host -t testimg .
+  sudo docker run -it --rm --name=testcntr testimg /bin/sh --login
 fi
 
 fxEndFooter
