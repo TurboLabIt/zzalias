@@ -14,8 +14,11 @@ fxHeader "🐳 Docker"
 
 if [ -z "$1" ]; then
 
+  fxTitle "🧹 Dangling images cleanup"
+  sudo docker rmi $(docker images -f "dangling=true" -q)
+
   fxTitle "🖼 Images"
-  sudo docker images --all
+  sudo docker images
   
   fxTitle "🐋 Containers"
   sudo docker container ls --all
