@@ -44,6 +44,15 @@ elif [ "$1" = "alpine" ]; then
   fxTitle "🗻 Run an ephemeral Alpine instance"
   sudo docker run --network host -it --rm --name=ephemeral-alpine alpine /bin/sh --login
   
+elif [ "$1" = "attach" ]; then
+    
+  fxTitle "🚪 Attach to a running container"
+  
+  if [ -z "$2" ]; then
+    fxCatastrophicError "Provide the container name: zzdock attach container-name"
+  fi
+  
+  sudo docker exec -it "$2" /bin/sh --login
 fi
 
 fxEndFooter
