@@ -122,9 +122,19 @@ elif [ "$1" == "flow" ]; then
   fi
 
   echo
-  read -p "🤠 Merge to master?  " -n 1 -r
-  echo
-  echo
+  
+  if [ -z "$3" ]; then
+  
+    read -p "🤠 Merge to master?  " -n 1 -r
+    echo
+    echo
+    
+  elif [ "$3" = "y" ]; then
+    
+    REPLY=Y
+  fi
+  
+
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 
     echo "Skipping master, you pussy..."
