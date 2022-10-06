@@ -123,13 +123,13 @@ elif [ "$1" == "flow" ]; then
 
   echo
   
-  if [ -z "$3" ]; then
+  if [ -z "$2" ]; then
   
     read -p "🤠 Merge to master?  " -n 1 -r
     echo
     echo
     
-  elif [ "$3" = "y" ]; then
+  elif [ "$2" = "y" ]; then
     
     REPLY=Y
   fi
