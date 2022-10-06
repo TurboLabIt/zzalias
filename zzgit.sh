@@ -137,7 +137,7 @@ elif [ "$1" == "flow" ]; then
 
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 
-    echo "Skipping master, you pussy..."
+    echo "🐇 Skipping master, you pussy..."
 
   else
 
