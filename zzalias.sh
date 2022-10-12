@@ -50,6 +50,7 @@ function zzclients()
 function zzzippotto()
 {
   zip -qr - . | pv -bep -s $(du -bs . | awk '{print $1}') > ../zippotto.zip
+  chmod ugo=rw ../zippotto.zip
 }
 
 
