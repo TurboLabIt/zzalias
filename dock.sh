@@ -35,6 +35,7 @@ elif [ "$1" = "new" ]; then
     fxCatastrophicError "Provide the container and the image name: zzdock new container-name image-name"
   fi
   
+  sudo docker container stop "$2"
   sudo docker container rm "$2"
   sudo docker container create -it --name "$2" "$3"
   zzdock start "$2"
