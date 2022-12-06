@@ -128,4 +128,6 @@ function zzsendmail()
     fxTitle "exim4/mainlog"
     tail -n 12 /var/log/exim4/mainlog
   fi
+  
+  fxEndFooter
 }
