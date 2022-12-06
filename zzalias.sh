@@ -126,6 +126,6 @@ function zzsendmail()
   
   if [ -f /var/log/exim4/mainlog ]; then
     fxTitle "exim4/mainlog"
-    tail -n 12 var/log/exim4/mainlog
+    tail -n 12 /var/log/exim4/mainlog
   fi
 }
