@@ -105,3 +105,27 @@ function zzhttps()
 {
   curl -vvI "https://$1" $2 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'
 }
+
+
+function zzsendmail()
+{
+  fxHeader "Send a test email"
+
+  if [ -z "${1}" ]; then
+    local MAIL_TO="zzsendmail@gmail.com"
+  else
+    local MAIL_TO=$1
+  fi
+  
+  fxTitle "Sending to ${MAIL_TO}..."
+  echo "This is a test email sent to $MAIL_TO from your server $(hostname)" | \
+    mail -s "🧪 Test email from your server $(hostname)!" $MAIL_TO
+    
+  fxTitle "Waiting..."
+  sleep 5
+  
+  if [ -f /var/log/exim4/mainlog ]; then
+    fxTitle "exim4/mainlog"
+    tail -n 12 var/log/exim4/mainlog
+  fi
+}
