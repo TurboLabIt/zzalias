@@ -117,12 +117,6 @@ function zzsendmail()
     local MAIL_TO=$1
   fi
   
-  if [ -z $(command -v mail) ]; then
-  
-    fxTitle "Mail command not found, installing it now..."
-    sudo apt update && sudo apt install mailutils -y
-  fi
-  
   fxTitle "Sending to ${MAIL_TO}..."
   echo "This is a test email sent to $MAIL_TO from your server $(hostname). Server time is $(fxDate)" | \
     mail -s "🧪 A test email sent from your server $(hostname)!" $MAIL_TO
