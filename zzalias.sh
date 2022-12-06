@@ -109,7 +109,7 @@ function zzhttps()
 
 function zzsendmail()
 {
-  fxHeader "Send a test email"
+  fxHeader "💌 Send a test email"
 
   if [ -z "${1}" ]; then
     local MAIL_TO="zzsendmail@gmail.com"
@@ -118,8 +118,8 @@ function zzsendmail()
   fi
   
   fxTitle "Sending to ${MAIL_TO}..."
-  echo "This is a test email sent to $MAIL_TO from your server $(hostname)" | \
-    mail -s "🧪 Test email from your server $(hostname)!" $MAIL_TO
+  echo "This is a test email sent to $MAIL_TO from your server $(hostname). Server time is $(fxDate)" | \
+    mail -s "🧪 A test email sent from your server $(hostname)!" $MAIL_TO
     
   fxTitle "Waiting..."
   sleep 5
