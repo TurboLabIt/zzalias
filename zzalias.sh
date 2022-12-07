@@ -159,4 +159,8 @@ function zzfixssh()
   sudo chmod u=rwx,go= ${SSH_PATH} -R
   sudo chmod u=rw,go=r ${SSH_PATH}id_rsa.pub
   sudo chmod u=rw,go= ${SSH_PATH}id_rsa
+  
+  ls -la  ${HOME_PATH}
+  echo "--"
+  ls -la  ${SSH_PATH}
 }
