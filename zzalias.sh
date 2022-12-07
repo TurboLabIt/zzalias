@@ -131,3 +131,31 @@ function zzsendmail()
   
   fxEndFooter
 }
+
+
+function zzfixssh()
+{
+  fxTitle "🩹 Fixing .ssh permissions..."
+  if [ -z "$1" ]; then
+  
+    local USERNAME=$(logname)
+    local HOME_PATH=$HOME
+    
+  else
+  
+    local USERNAME=$1
+    local HOME_PATH=$( getent passwd "$USERNAME" | cut -d: -f6 )
+  fi
+
+  local HOME_PATH=${HOME_PATH}/
+  local SSH_PATH=${HOME_PATH}.ssh/
+  
+  fxInfo "Working on ##${SSH_PATH}##"
+  
+  echo "sudo chown ${USERNAME}:${USERNAME} ${HOME_PATH} -R"
+  
+  # https://superuser.com/a/215506/129204
+  echo "sudo chmod u=rwx,go= ${SSH_PATH} -R"
+  echo "sudo chmod u=rw,go=r ${SSH_PATH}id_rsa.pub"
+  echo "sudo chmod u=rw,go= ${SSH_PATH}id_rsa"
+}
