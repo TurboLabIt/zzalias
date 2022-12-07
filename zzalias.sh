@@ -135,7 +135,8 @@ function zzsendmail()
 
 function zzfixssh()
 {
-  fxTitle "🩹 Fixing .ssh permissions..."
+  fxHeader "🩹 Fixing .ssh permissions..."
+  
   if [ -z "$1" ]; then
   
     local USERNAME=$(logname)
@@ -152,10 +153,10 @@ function zzfixssh()
   
   fxInfo "Working on ##${SSH_PATH}##"
   
-  echo "sudo chown ${USERNAME}:${USERNAME} ${HOME_PATH} -R"
+  sudo chown ${USERNAME}:${USERNAME} ${HOME_PATH} -R
   
   # https://superuser.com/a/215506/129204
-  echo "sudo chmod u=rwx,go= ${SSH_PATH} -R"
-  echo "sudo chmod u=rw,go=r ${SSH_PATH}id_rsa.pub"
-  echo "sudo chmod u=rw,go= ${SSH_PATH}id_rsa"
+  sudo chmod u=rwx,go= ${SSH_PATH} -R
+  sudo chmod u=rw,go=r ${SSH_PATH}id_rsa.pub
+  sudo chmod u=rw,go= ${SSH_PATH}id_rsa
 }
