@@ -135,7 +135,7 @@ function zzWsAction()
   else
     
     sudo service ${SERVICE_NAME} ${ACTION}
-    sudo service ${SERVICE_NAME} status
+    sudo systemctl status ${SERVICE_NAME} --no-pager
   fi
 }
 
