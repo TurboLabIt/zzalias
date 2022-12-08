@@ -156,11 +156,12 @@ case "${ACTION}" in
 
   restart)
     zzWsAction "$NGINX_INSTALLED" nginx stop sync
+    zzWsAction "$HTTPD_INSTALLED" apache2 stop sync
     
-    zzWsAction "$HTTPD_INSTALLED" apache2 restart sync
     zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" restart sync
     zzWsAction 1 mysql restart sync
     
+    zzWsAction "$HTTPD_INSTALLED" apache2 start sync
     zzWsAction "$NGINX_INSTALLED" nginx start sync
     
     zzWsAction 1 postfix restart async
