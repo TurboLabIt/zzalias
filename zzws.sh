@@ -15,7 +15,7 @@ fi
 ## bash-fx is ready
 
 
-fxHeader "♻️ Web Stack Restarter"
+fxHeader "🏄‍♂️ Webstackup Web Services Manager (zzws)"
 
 fxTitle "Testing NGINX config..."
 if [ ! -z $(command -v nginx) ]; then
