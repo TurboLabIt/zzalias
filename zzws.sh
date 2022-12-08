@@ -21,13 +21,13 @@ fxTitle "Testing NGINX config..."
 if [ ! -z $(command -v nginx) ]; then
 
   sudo nginx -t
-  
+
   if [ $? -eq 0 ]; then
     fxOK "Looking good!"
   else
     fxCatastrophicError "NGINX config is failing, cannot proceed"
   fi
-  
+
 else
 
   fxInfo "NGINX not dectected. Skipping"
@@ -38,13 +38,13 @@ fxTitle "Testing Apache HTTP Server config..."
 if [ ! -z $(command -v apache2) ]; then
 
   sudo apachectl configtest
-  
+
   if [ $? -eq 0 ]; then
     fxOK "Looking good!"
   else
     fxCatastrophicError "Apache config is failing, cannot proceed"
   fi
-  
+
 else
 
   fxInfo "Apache HTTP Server not dectected. Skipping"
@@ -59,29 +59,28 @@ else
 fi
 
 
-if [ ! -z "$PHP_FPM" ]; then
+if [ ! -z "$PHP_VER" ]; then
 
   showPHPVer
-  
+
 else
 
   fxTitle "PHP version"
-  PHP_FPM=php-fpm
   fxWarning "No PHP version detected, using generic php-fpm..."
 fi
 
 
 fxTitle "Testing PHP config..."
-if [ -f "/usr/sbin/${PHP_FPM}" ]; then
+if [ -f "/usr/sbin/php-fpm${PHP_VER}" ]; then
 
-  sudo /usr/sbin/${PHP_FPM} -t
-  
+  sudo /usr/sbin/php-fpm${PHP_VER} -t
+
   if [ $? -eq 0 ]; then
     fxOK "Looking good!"
   else
     fxCatastrophicError "PHP-FPM config is failing, cannot proceed"
   fi
-  
+
 else
 
   fxInfo "PHP-FPM not dectected. Skipping"
@@ -102,13 +101,13 @@ fxMessage "Action: ${ACTION}"
 function zzwsservicemassaction
 {
   if [ "$ACTION" = "reload" ]; then
-    declare -a SERVICES=("nginx" "apache2" "$PHP_FPM" "cron")
+    declare -a SERVICES=("nginx" "apache2" "php-fpm${PHP_VER}" "cron")
   elif [ "$ACTION" = "stop" ]; then
-    declare -a SERVICES=("nginx" "apache2" "$PHP_FPM" "postfix" "opendkim" "mysql" "cron")
+    declare -a SERVICES=("nginx" "apache2" "php-fpm${PHP_VER}" "postfix" "opendkim" "mysql" "cron")
   else
-    declare -a SERVICES=("mysql" "opendkim" "postfix" "$PHP_FPM" "apache2" "nginx" "cron")
+    declare -a SERVICES=("mysql" "opendkim" "postfix" "php-fpm${PHP_VER}" "apache2" "nginx" "cron")
   fi
-	
+
   for SERVICE_NAME in "${SERVICES[@]}"
     do
       fxTitle "Executing $ACTION on ${SERVICE_NAME}"
