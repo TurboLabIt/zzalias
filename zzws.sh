@@ -126,7 +126,7 @@ function zzWsAction()
   if [ "$SYNC_OR_ASYNC" = "async" ]; then
   
     fxInfo "Running async"
-    sudo service ${SERVICE_NAME} ${ACTION} > /dev/null 2>&1 &
+    sudo -b service ${SERVICE_NAME} ${ACTION} > /dev/null 2>&1
     
   else
     
