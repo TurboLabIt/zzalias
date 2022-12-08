@@ -102,9 +102,9 @@ fxMessage "Action: ${ACTION}"
 ## Define mass-action on web services
 function zzwsservicemassaction
 {
-  if [ "$ACTION" = "reload" ]; then
+  if [ "$1" = "reload" ]; then
     declare -a SERVICES=("nginx" "apache2" "${PHP_FPM}" "cron")
-  elif [ "$ACTION" = "stop" ]; then
+  elif [ "$1" = "stop" ]; then
     declare -a SERVICES=("nginx" "apache2" "${PHP_FPM}" "postfix" "opendkim" "mysql" "cron")
   else
     declare -a SERVICES=("mysql" "opendkim" "postfix" "${PHP_FPM}" "apache2" "nginx" "cron")
@@ -112,7 +112,7 @@ function zzwsservicemassaction
 
   for SERVICE_NAME in "${SERVICES[@]}"
     do
-      fxTitle "Executing $ACTION on ${SERVICE_NAME}"
+      fxTitle "Executing $1 on ${SERVICE_NAME}"
       sudo service ${SERVICE_NAME} ${1}
       echo ""
     done
