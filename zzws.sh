@@ -66,6 +66,8 @@ if [ ! -z "$PHP_VER" ]; then
 else
 
   fxTitle "PHP version"
+  PHP_VER=
+  PHP_FPM=php-fpm
   fxWarning "No PHP version detected, using generic php-fpm..."
 fi
 
@@ -101,11 +103,11 @@ fxMessage "Action: ${ACTION}"
 function zzwsservicemassaction
 {
   if [ "$ACTION" = "reload" ]; then
-    declare -a SERVICES=("nginx" "apache2" "php-fpm${PHP_VER}" "cron")
+    declare -a SERVICES=("nginx" "apache2" "${PHP_FPM}" "cron")
   elif [ "$ACTION" = "stop" ]; then
-    declare -a SERVICES=("nginx" "apache2" "php-fpm${PHP_VER}" "postfix" "opendkim" "mysql" "cron")
+    declare -a SERVICES=("nginx" "apache2" "${PHP_FPM}" "postfix" "opendkim" "mysql" "cron")
   else
-    declare -a SERVICES=("mysql" "opendkim" "postfix" "php-fpm${PHP_VER}" "apache2" "nginx" "cron")
+    declare -a SERVICES=("mysql" "opendkim" "postfix" "${PHP_FPM}" "apache2" "nginx" "cron")
   fi
 
   for SERVICE_NAME in "${SERVICES[@]}"
