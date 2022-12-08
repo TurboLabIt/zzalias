@@ -135,6 +135,7 @@ function zzWsAction()
   else
     
     sudo service ${SERVICE_NAME} ${ACTION}
+    sudo service ${SERVICE_NAME} status
   fi
 }
 
