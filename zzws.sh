@@ -18,7 +18,7 @@ fi
 fxHeader "♻️ Web Stack Restarter"
 
 fxTitle "Testing NGINX config..."
-if [ -z $(command -v nginx) ]; then
+if [ ! -z $(command -v nginx) ]; then
 
   sudo nginx -t
   
@@ -35,7 +35,7 @@ fi
 
 
 fxTitle "Testing Apache HTTP Server config..."
-if [ -z $(command -v apache2) ]; then
+if [ ! -z $(command -v apache2) ]; then
 
   sudo apachectl configtest
   
@@ -67,7 +67,7 @@ else
 
   fxTitle "PHP version"
   PHP_FPM=php-fpm
-  echo "No version known, using generic php-fpm..."
+  fxWarning "No PHP version detected, using generic php-fpm..."
 fi
 
 
