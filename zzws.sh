@@ -112,8 +112,12 @@ function zzWsAction()
   local ACTION=$3
   local SYNC_OR_ASYNC=$4
   
-  if [ "${ACTION}" = "restart" ] | [ "${ACTION}" = "reload" ]; then
+  if [ "${ACTION}" = "restart" ] || [ "${ACTION}" = "reload" ]; then
     local EMOJI="♻️ "
+  elif [ "${ACTION}" = "stop" ]; then
+    local EMOJI="🛑 "
+  elif [ "${ACTION}" = "start" ]; then
+    local EMOJI="🏁 "
   fi
   
   fxTitle "${EMOJI}Executing service ${SERVICE_NAME} ${ACTION}"
