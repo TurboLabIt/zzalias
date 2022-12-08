@@ -27,6 +27,8 @@ if [ ! -z $(command -v nginx) ]; then
   else
     fxCatastrophicError "NGINX config is failing, cannot proceed"
   fi
+  
+  NGINX_INSTALLED=1
 
 else
 
@@ -44,6 +46,8 @@ if [ ! -z $(command -v apache2) ]; then
   else
     fxCatastrophicError "Apache config is failing, cannot proceed"
   fi
+
+  HTTPD_INSTALLED=1
 
 else
 
@@ -82,6 +86,8 @@ if [ -f "/usr/sbin/php-fpm${PHP_VER}" ]; then
   else
     fxCatastrophicError "PHP-FPM config is failing, cannot proceed"
   fi
+  
+  PHP_INSTALLED=1
 
 else
 
@@ -91,7 +97,7 @@ fi
 
 fxTitle "Choosing action..."
 if [ -z "$1" ]; then
-  ACTION=restart	
+  ACTION=turbo-restart
 else
   ACTION=$1
 fi
@@ -99,41 +105,83 @@ fi
 fxMessage "Action: ${ACTION}"
 
 
-## Define mass-action on web services
-function zzwsservicemassaction
+function zzWsAction()
 {
-  if [ "$1" = "reload" ]; then
-    declare -a SERVICES=("nginx" "apache2" "${PHP_FPM}" "cron")
-  elif [ "$1" = "stop" ]; then
-    declare -a SERVICES=("nginx" "apache2" "${PHP_FPM}" "postfix" "opendkim" "mysql" "cron")
-  else
-    declare -a SERVICES=("mysql" "opendkim" "postfix" "${PHP_FPM}" "apache2" "nginx" "cron")
+  local DO_IF_ONE=$1
+  local SERVICE_NAME=$2
+  local ACTION=$3
+  local SYNC_OR_ASYNC=$4
+  
+  if [ "${ACTION}" = "restart" ] | [ "${ACTION}" = "reload" ]; then
+    local EMOJI="♻️ "
   fi
-
-  for SERVICE_NAME in "${SERVICES[@]}"
-    do
-      fxTitle "Executing $1 on ${SERVICE_NAME}"
-      sudo service ${SERVICE_NAME} ${1}
-      echo ""
-    done
+  
+  fxTitle "${EMOJI}Executing service ${SERVICE_NAME} ${ACTION}"
+  
+  if [ "${DO_IF_ONE}" != 1 ]; then
+    fxInfo "${SERVICE_NAME} not detected, skipping"
+    return 7
+  fi
+  
+  if [ "$SYNC_OR_ASYNC" = "async" ]; then
+  
+    fxInfo "Running async"
+    sudo service ${SERVICE_NAME} ${ACTION} &
+    
+  else
+    
+    sudo service ${SERVICE_NAME} ${ACTION}
+  fi
 }
 
 
-## Restart and stop special handling
-if [ "$ACTION" = "restart" ] || [ "$ACTION" = "stop" ]; then
-  zzwsservicemassaction stop
-fi
+case "${ACTION}" in
 
+  turbo-restart)
+    zzWsAction "$NGINX_INSTALLED" nginx restart sync
+    zzWsAction "$HTTPD_INSTALLED" apache2 restart sync
+    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" restart sync
+    zzWsAction 1 mysql restart async
+    zzWsAction 1 postfix restart async
+    zzWsAction 1 opendkim restart async
+    zzWsAction 1 cron restart async
+    ;;
+    
+  reload)
+    zzWsAction "$NGINX_INSTALLED" nginx reload sync
+    zzWsAction "$HTTPD_INSTALLED" apache2 reload sync
+    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" reload sync
+    zzWsAction 1 cron reload async
+    ;;
 
-## Restart special handling
-if [ "$ACTION" = "restart" ]; then
-  ACTION=start
-fi
+  restart)
+    zzWsAction "$NGINX_INSTALLED" nginx stop sync
+    
+    zzWsAction "$HTTPD_INSTALLED" apache2 restart sync
+    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" restart sync
+    zzWsAction 1 mysql restart sync
+    
+    zzWsAction "$NGINX_INSTALLED" nginx start sync
+    
+    zzWsAction 1 postfix restart async
+    zzWsAction 1 opendkim restart async
+    zzWsAction 1 cron restart async
+    ;;
 
+  stop)
+    zzWsAction "$NGINX_INSTALLED" nginx stop sync
+    zzWsAction "$HTTPD_INSTALLED" apache2 stop sync
+    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" stop sync
+    zzWsAction 1 mysql stop sync
+    zzWsAction 1 postfix stop sync
+    zzWsAction 1 opendkim stop sync
+    zzWsAction 1 cron stop sync
+    ;;
 
-## Every action
-if [ "$ACTION" != "stop" ]; then
-  zzwsservicemassaction $ACTION
-fi
+  *)
+    fxCatastrophicError "Unkown action!"
+    ;;
+esac
+
 
 fxEndFooter
