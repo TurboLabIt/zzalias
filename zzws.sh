@@ -150,6 +150,8 @@ case "${ACTION}" in
     zzWsAction 1 postfix restart async
     zzWsAction 1 opendkim restart async
     zzWsAction 1 cron restart async
+    
+    zzWsAction 1 sshd restart
     ;;
     
   reload)
@@ -157,6 +159,8 @@ case "${ACTION}" in
     zzWsAction "$HTTPD_INSTALLED" apache2 reload sync
     zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" reload sync
     zzWsAction 1 cron reload async
+    
+    zzWsAction 1 sshd restart
     ;;
 
   restart)
@@ -172,6 +176,8 @@ case "${ACTION}" in
     zzWsAction 1 postfix restart async
     zzWsAction 1 opendkim restart async
     zzWsAction 1 cron restart async
+    
+    zzWsAction 1 sshd restart
     ;;
 
   stop)
