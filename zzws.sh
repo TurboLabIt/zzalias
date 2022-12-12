@@ -151,7 +151,7 @@ case "${ACTION}" in
     zzWsAction 1 opendkim restart async
     zzWsAction 1 cron restart async
     
-    zzWsAction 1 sshd restart
+    zzWsAction 1 sshd restart sync
     ;;
     
   reload)
@@ -160,7 +160,7 @@ case "${ACTION}" in
     zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" reload sync
     zzWsAction 1 cron reload async
     
-    zzWsAction 1 sshd restart
+    zzWsAction 1 sshd restart sync
     ;;
 
   restart)
@@ -177,7 +177,7 @@ case "${ACTION}" in
     zzWsAction 1 opendkim restart async
     zzWsAction 1 cron restart async
     
-    zzWsAction 1 sshd restart
+    zzWsAction 1 sshd restart sync
     ;;
 
   stop)
