@@ -43,7 +43,6 @@ if [ ! -f "bin/magento" ]; then
 fi
 
 
-
 if [ -z "$PHP_VER" ] || [ "$PHP_VER" = '' ]; then
   fxCatastrophicError ".php-version not found"
 fi
