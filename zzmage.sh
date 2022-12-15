@@ -18,6 +18,7 @@ fi
 
 
 fxHeader "🧙 bin/magento"
+fxCtrlConce
 
 if [ -d "/tmp/magento" ]; then
   sudo rm -rf "/tmp/magento"
