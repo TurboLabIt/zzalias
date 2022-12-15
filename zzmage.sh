@@ -26,13 +26,13 @@ fi
 if [ -d "shop" ]; then
 
   PHP_VER=$(head -n 1 .php-version)
-  CACHE_CLEAR='scripts/cache-clear.sh'
+  CACHE_CLEAR=$(realpath scripts/cache-clear.sh)
   cd "shop"
 
 else
 
   PHP_VER=$(head -n 1 ../.php-version)
-  CACHE_CLEAR='../scripts/cache-clear.sh'
+  CACHE_CLEAR=$(realpath ../scripts/cache-clear.sh)
 
 fi
 
@@ -74,8 +74,8 @@ else
 fi
 
 
-if [ -f "$CACHE_CLEAR" ]; then
-  fxCatastrophicError "##$(realpath $CACHE_CLEAR)## not found"
+if [ ! -f "$CACHE_CLEAR" ]; then
+  fxCatastrophicError "##$CACHE_CLEAR## not found"
 fi
 
 bash $CACHE_CLEAR
