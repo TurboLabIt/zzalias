@@ -26,15 +26,22 @@ fi
 if [ -d "shop" ]; then
 
   PHP_VER=$(head -n 1 .php-version)
+  CACHE_CLEAR='scripts/cache-clear.sh'
   cd "shop"
 
 else
 
   PHP_VER=$(head -n 1 ../.php-version)
+  CACHE_CLEAR='../scripts/cache-clear.sh'
 
 fi
 
-fxInfo "Working from $(pwd)"
+fxInfo "Working in $(pwd)"
+
+if [ ! -f "bin/magento" ]; then
+  fxCatastrophicError "##$(realpath bin/magento)## not found!"
+fi
+
 
 
 if [ -z "$PHP_VER" ] || [ "$PHP_VER" = '' ]; then
@@ -67,9 +74,9 @@ else
 fi
 
 
-fxTitle "Clearing the cache..."
-zzMageExec 'cache:flush'
+if [ -f "$CACHE_CLEAR" ]; then
+  fxCatastrophicError "##$(realpath $CACHE_CLEAR)## not found"
+fi
 
-
-fxEndFooter
+bash $CACHE_CLEAR
 
