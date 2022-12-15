@@ -50,15 +50,25 @@ fi
 
 fxInfo "PHP ${PHP_VER}"
 
+if [ ! -z "$XDEBUG_PORT" ]; then
+  XDEBUG_CONFIG="remote_host=127.0.0.1 client_port=$XDEBUG_PORT"
+  XDEBUG_MODE="develop,debug"
+  fxInfo "Xdebug enabled to port $XDEBUG_PORT . Good hunting! 🐛"
+else
+  XDEBUG_MODE="off"
+  fxInfo "Xdebug disabled"
+fi
+
 
 DIR_OWNER=$(stat -c '%U' .)
 CURRENTUSER=$(whoami)
 function zzMageExec()
 {
+
   if [ "$DIR_OWNER" = "$CURRENTUSER" ]; then
-    XDEBUG_MODE=off /bin/php${PHP_VER} bin/magento "$@"
+    /bin/php${PHP_VER} bin/magento "$@"
   else
-    sudo -u "$DIR_OWNER" -H XDEBUG_MODE=off /bin/php${PHP_VER} bin/magento "$@"
+    sudo -u "$DIR_OWNER" -H /bin/php${PHP_VER} bin/magento "$@"
   fi
 }
 
