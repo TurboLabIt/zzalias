@@ -53,7 +53,7 @@ fxInfo "PHP ${PHP_VER}"
 if [ ! -z "$XDEBUG_PORT" ]; then
   export XDEBUG_CONFIG="remote_host=127.0.0.1 client_port=$XDEBUG_PORT"
   export XDEBUG_MODE="develop,debug"
-  fxInfo "Xdebug enabled to port $XDEBUG_PORT . Good hunting! 🐛"
+  fxInfo "Xdebug enabled to port ##$XDEBUG_PORT##. Good hunting! 🐛"
 else
   export XDEBUG_MODE="off"
   fxInfo "Xdebug disabled"
