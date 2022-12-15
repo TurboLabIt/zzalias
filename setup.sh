@@ -29,6 +29,7 @@ fxLinkBin ${INSTALL_DIR}zzxdebug.sh
 fxLinkBin ${INSTALL_DIR}sy.sh
 fxLinkBin ${INSTALL_DIR}dock.sh zzdock
 fxLinkBin ${INSTALL_DIR}lll.sh
+fxLinkBin ${INSTALL_DIR}zzmage.sh
 
 
 ##
