@@ -66,17 +66,16 @@ if [ ! -z "$1" ]; then
 
   fxTitle "Executing..."
   zzMageExec "$@"
+  fxEndFooter
 
 else
 
   fxTitle "No command provided"
+  
+  if [ ! -f "$CACHE_CLEAR" ]; then
+    fxCatastrophicError "##$CACHE_CLEAR## not found"
+  fi
+
+  bash $CACHE_CLEAR
 
 fi
-
-
-if [ ! -f "$CACHE_CLEAR" ]; then
-  fxCatastrophicError "##$CACHE_CLEAR## not found"
-fi
-
-bash $CACHE_CLEAR fast
-
