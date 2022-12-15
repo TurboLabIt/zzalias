@@ -78,5 +78,5 @@ if [ ! -f "$CACHE_CLEAR" ]; then
   fxCatastrophicError "##$CACHE_CLEAR## not found"
 fi
 
-bash $CACHE_CLEAR
+bash $CACHE_CLEAR fast
 
