@@ -62,7 +62,7 @@ if [ ! -z "$1" ]; then
 
 else
 
-  fxInfo "No command provided"
+  fxTitle "No command provided"
 
 fi
 
