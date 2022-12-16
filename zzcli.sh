@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-### Run `php bin/magento` with right PHP version
-# https://github.com/TurboLabIt/zzalias/blob/master/zzws.sh
-#
-# sudo apt install curl -y && curl -s https://raw.githubusercontent.com/TurboLabIt/zzalias/master/zzmage.sh?$(date +%s) | sudo bash
+### Run your project `script/cli.sh`
+# https://github.com/TurboLabIt/zzalias/blob/master/zzcli.sh
 
 clear
 
@@ -17,75 +15,28 @@ fi
 ## bash-fx is ready
 
 
-fxHeader "🧙 bin/magento"
-fxCtrlConce
+if [ -f "cli.sh" ]; then
 
-if [ -d "/tmp/magento" ]; then
-  sudo rm -rf "/tmp/magento"
-fi
+  bash cli.sh "$@"
 
-if [ -d "shop" ]; then
+elif [ -f "scripts/cli.sh" ]; then
 
-  PHP_VER=$(head -n 1 .php-version)
-  CACHE_CLEAR=$(realpath scripts/cache-clear.sh)
-  cd "shop"
-
-else
-
-  PHP_VER=$(head -n 1 ../.php-version)
-  CACHE_CLEAR=$(realpath ../scripts/cache-clear.sh)
-
-fi
-
-fxInfo "Working in $(pwd)"
-
-if [ ! -f "bin/magento" ]; then
-  fxCatastrophicError "##$(realpath bin/magento)## not found!"
-fi
-
-
-if [ -z "$PHP_VER" ] || [ "$PHP_VER" = '' ]; then
-  fxCatastrophicError ".php-version not found"
-fi
-
-fxInfo "PHP ${PHP_VER}"
-
-if [ ! -z "$XDEBUG_PORT" ]; then
-  export XDEBUG_CONFIG="remote_host=127.0.0.1 client_port=$XDEBUG_PORT"
-  export XDEBUG_MODE="develop,debug"
-  fxInfo "Xdebug enabled to port ##$XDEBUG_PORT##. Good hunting! 🐛"
-else
-  export XDEBUG_MODE="off"
-  fxInfo "Xdebug disabled"
-fi
-
-
-DIR_OWNER=$(stat -c '%U' .)
-CURRENTUSER=$(whoami)
-function zzMageExec()
-{
-
-  if [ "$DIR_OWNER" = "$CURRENTUSER" ]; then
-    /bin/php${PHP_VER} bin/magento "$@"
-  else
-    sudo -u "$DIR_OWNER" -H /bin/php${PHP_VER} bin/magento "$@"
-  fi
-}
-
-if [ ! -z "$1" ]; then
-
-  fxTitle "Executing..."
-  zzMageExec "$@"
-  fxEndFooter
-
-else
-
-  fxTitle "No command provided"
+  bash scripts/cli.sh "$@"
   
-  if [ ! -f "$CACHE_CLEAR" ]; then
-    fxCatastrophicError "##$CACHE_CLEAR## not found"
-  fi
+elif [ -f "script/cli.sh" ]; then
 
-  bash $CACHE_CLEAR
+  bash script/cli.sh "$@"
+  
+elif [ -f "../scripts/cli.sh" ]; then
+
+  bash scripts/cli.sh "$@"
+  
+elif [ -f "../script/cli.sh" ]; then
+
+  bash script/cli.sh "$@"
+  
+else
+
+  fxCatastrophicError "Project cli.sh not found"
 
 fi
