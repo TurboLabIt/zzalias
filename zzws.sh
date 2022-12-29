@@ -63,36 +63,30 @@ else
 fi
 
 
-if [ ! -z "$PHP_VER" ]; then
-
-  showPHPVer
-
-else
-
-  fxTitle "PHP version"
-  PHP_VER=
-  PHP_FPM=php-fpm
-  fxWarning "No PHP version detected, using generic php-fpm..."
+if [ -z "$PHP_KNOWN_VERSIONS" ]; then
+  fxWarning "PHP_KNOWN_VERSIONS not detected..."
 fi
 
 
-fxTitle "Testing PHP config..."
-if [ -f "/usr/sbin/php-fpm${PHP_VER}" ]; then
+for ONE_PHP_VERSION in "${PHP_KNOWN_VERSIONS[@]}"; do
 
-  sudo /usr/sbin/php-fpm${PHP_VER} -t
+  fxTitle "Testing PHP-FPM ${ONE_PHP_VERSION} config..."
+  if [ -f "/usr/sbin/php-fpm${ONE_PHP_VERSION}" ]; then
 
-  if [ $? -eq 0 ]; then
-    fxOK "Looking good!"
+    sudo /usr/sbin/php-fpm${ONE_PHP_VERSION} -t
+
+    if [ $? -eq 0 ]; then
+      fxOK "Looking good!"
+    else
+      fxCatastrophicError "PHP-FPM config is failing, cannot proceed"
+    fi
+
   else
-    fxCatastrophicError "PHP-FPM config is failing, cannot proceed"
+
+    fxInfo "PHP-FPM ${ONE_PHP_VERSION} not dectected. Skipping"
   fi
-  
-  PHP_INSTALLED=1
 
-else
-
-  fxInfo "PHP-FPM not dectected. Skipping"
-fi
+done
 
 
 fxTitle "Choosing action..."
@@ -140,34 +134,54 @@ function zzWsAction()
 }
 
 
+function zzWsPhpAction()
+{
+  local ACTION=$1
+  local SYNC_OR_ASYNC=$2
+  
+  for ONE_PHP_VERSION in "${PHP_KNOWN_VERSIONS[@]}"; do
+
+    local SERVICE_NAME=php${ONE_PHP_VERSION}-fpm
+    
+    if [ -f "/usr/sbin/php-fpm${ONE_PHP_VERSION}" ]; then
+    
+      zzWsAction 1 "$SERVICE_NAME" "$ACTION" "$SYNC_OR_ASYNC"
+
+    else
+    
+      fxTitle "🕳️ ${SERVICE_NAME} ${ACTION}"
+      fxInfo "PHP-FPM ${ONE_PHP_VERSION} not dectected. Skipping"
+    fi
+
+  done
+}
+
+
 case "${ACTION}" in
 
   turbo-restart)
     zzWsAction "$NGINX_INSTALLED" nginx restart sync
     zzWsAction "$HTTPD_INSTALLED" apache2 restart sync
-    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" restart sync
+    zzWsPhpAction restart sync
     zzWsAction 1 mysql restart async
     zzWsAction 1 postfix restart async
     zzWsAction 1 opendkim restart async
     zzWsAction 1 cron restart async
-    
     zzWsAction 1 sshd restart sync
     ;;
     
   reload)
     zzWsAction "$NGINX_INSTALLED" nginx reload sync
     zzWsAction "$HTTPD_INSTALLED" apache2 reload sync
-    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" reload sync
+    zzWsPhpAction reload sync
     zzWsAction 1 cron reload async
-    
     zzWsAction 1 sshd restart sync
     ;;
 
   restart)
     zzWsAction "$NGINX_INSTALLED" nginx stop sync
     zzWsAction "$HTTPD_INSTALLED" apache2 stop sync
-    
-    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" restart sync
+    zzWsPhpAction restart sync
     zzWsAction 1 mysql restart sync
     
     zzWsAction "$HTTPD_INSTALLED" apache2 start sync
@@ -176,14 +190,13 @@ case "${ACTION}" in
     zzWsAction 1 postfix restart async
     zzWsAction 1 opendkim restart async
     zzWsAction 1 cron restart async
-    
     zzWsAction 1 sshd restart sync
     ;;
 
   stop)
     zzWsAction "$NGINX_INSTALLED" nginx stop sync
     zzWsAction "$HTTPD_INSTALLED" apache2 stop sync
-    zzWsAction "$PHP_INSTALLED" "${PHP_FPM}" stop sync
+    zzWsPhpAction stop sync
     zzWsAction 1 mysql stop sync
     zzWsAction 1 postfix stop sync
     zzWsAction 1 opendkim stop sync
