@@ -166,7 +166,9 @@ case "${ACTION}" in
     zzWsAction 1 mysql restart async
     zzWsAction 1 postfix restart async
     zzWsAction 1 opendkim restart async
-    zzWsAction 1 cron restart async
+    ## cron shouldn't be restarted, or you'll get:
+    # `cron.service: Found left-over process 2093062 (cron) in control group while starting unit. Ignoring.`
+    zzWsAction 1 cron reload async
     zzWsAction 1 sshd restart sync
     ;;
     
@@ -189,7 +191,9 @@ case "${ACTION}" in
     
     zzWsAction 1 postfix restart async
     zzWsAction 1 opendkim restart async
-    zzWsAction 1 cron restart async
+    ## cron shouldn't be restarted, or you'll get:
+    # `cron.service: Found left-over process 2093062 (cron) in control group while starting unit. Ignoring.`
+    zzWsAction 1 cron reload async
     zzWsAction 1 sshd restart sync
     ;;
 
