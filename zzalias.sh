@@ -164,3 +164,11 @@ function zzfixssh()
   echo "--"
   sudo ls -la  ${SSH_PATH}
 }
+
+
+function zzbluetooth()
+{
+  sudo rfkill unblock all && sudo hciconfig hci0 down && \
+    sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up
+   sudo service bluetooth restart
+}
