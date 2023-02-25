@@ -70,9 +70,9 @@ fi
 
 for ONE_PHP_VERSION in "${PHP_KNOWN_VERSIONS[@]}"; do
 
-  fxTitle "Testing PHP-FPM ${ONE_PHP_VERSION} config..."
   if [ -f "/usr/sbin/php-fpm${ONE_PHP_VERSION}" ]; then
 
+    fxTitle "Testing PHP-FPM ${ONE_PHP_VERSION} config..."
     sudo /usr/sbin/php-fpm${ONE_PHP_VERSION} -t
 
     if [ $? -eq 0 ]; then
@@ -80,10 +80,7 @@ for ONE_PHP_VERSION in "${PHP_KNOWN_VERSIONS[@]}"; do
     else
       fxCatastrophicError "PHP-FPM config is failing, cannot proceed"
     fi
-
-  else
-
-    fxInfo "PHP-FPM ${ONE_PHP_VERSION} not dectected. Skipping"
+    
   fi
 
 done
@@ -144,13 +141,7 @@ function zzWsPhpAction()
     local SERVICE_NAME=php${ONE_PHP_VERSION}-fpm
     
     if [ -f "/usr/sbin/php-fpm${ONE_PHP_VERSION}" ]; then
-    
       zzWsAction 1 "$SERVICE_NAME" "$ACTION" "$SYNC_OR_ASYNC"
-
-    else
-    
-      fxTitle "🕳️ ${SERVICE_NAME} ${ACTION}"
-      fxInfo "PHP-FPM ${ONE_PHP_VERSION} not dectected. Skipping"
     fi
 
   done
