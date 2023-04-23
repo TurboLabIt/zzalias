@@ -36,6 +36,9 @@ function zzdf()
   lsblk | grep -v loop
   echo -e "\e[1;34m---------------------------\e[0m"
   findmnt | grep 'ext\|btrfs\|ntfs'
+  if [ ! -z $(command -v iostat) ]; then
+    S_COLORS=always iostat -dx 1 | grep -v 'loop\|dm-'
+  fi
 }
 
 
