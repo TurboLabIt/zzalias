@@ -28,6 +28,7 @@ alias zzeos="hwe-support-status --verbose && ubuntu-security-status"
 alias zzbios="sudo systemctl reboot --firmware-setup"
 alias zzkillme="sudo killall -u $(logname)"
 alias zzprofiler="flatpak run org.kde.kcachegrind"
+alias zzscreen="screen -dR $(logname)"
 
 function zzdf()
 {
