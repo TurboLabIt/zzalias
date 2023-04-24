@@ -191,10 +191,8 @@ function zzloop()
     echo -e "\e[1;34m---------------------------\e[0m"
     echo -e "\e[1;34m $(date)\e[0m"
     echo ""
-    "${@:1}"
-    sleep $2
+    "${@:2}"
+    sleep $1
     echo ""
-    echo -e "\e[1;34m $(date)\e[0m"
-    echo -e "\e[1;34m---------------------------\e[0m"
   done
 }
