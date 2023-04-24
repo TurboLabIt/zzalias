@@ -183,3 +183,18 @@ function zzbluetooth()
     sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up
    sudo service bluetooth restart
 }
+
+
+function zzloop()
+{
+  while true; do
+    echo -e "\e[1;34m---------------------------\e[0m"
+    echo -e "\e[1;34m $(date)\e[0m"
+    echo ""
+    "${@:1}"
+    sleep $2
+    echo ""
+    echo -e "\e[1;34m $(date)\e[0m"
+    echo -e "\e[1;34m---------------------------\e[0m"
+  done
+}
