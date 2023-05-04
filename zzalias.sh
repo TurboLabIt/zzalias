@@ -42,11 +42,6 @@ function zzdf()
     echo -e "\e[1;34m---------------------------\e[0m"
       sudo parted -l | grep -i 'model\|disk /' | grep -vi 'mapper'
   fi
-  
-  if [ ! -z $(command -v iostat) ]; then
-    echo -e "\e[1;34m---------------------------\e[0m"
-    S_COLORS=always iostat -dx 1 | grep -v 'loop\|dm-'
-  fi
 }
 
 
