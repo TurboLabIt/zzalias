@@ -29,6 +29,8 @@ alias zzbios="sudo systemctl reboot --firmware-setup"
 alias zzkillme="sudo killall -u $(logname)"
 alias zzprofiler="flatpak run org.kde.kcachegrind"
 alias zzscreen="screen -dR $(logname)"
+alias zziostat="S_COLORS=always iostat -dx 1 | grep -v 'loop\|dm-'"
+
 
 function zzdf()
 {
@@ -40,7 +42,7 @@ function zzdf()
   
   if [ ! -z $(command -v parted) ]; then
     echo -e "\e[1;34m---------------------------\e[0m"
-      sudo parted -l | grep -i 'model\|disk /' | grep -vi 'mapper'
+    sudo parted -l | grep -i 'model\|disk /' | grep -vi 'mapper'
   fi
 }
 
@@ -176,8 +178,8 @@ function zzfixssh()
 function zzbluetooth()
 {
   sudo rfkill unblock all && sudo hciconfig hci0 down && \
-    sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up
-   sudo service bluetooth restart
+  sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up
+  sudo service bluetooth restart
 }
 
 
