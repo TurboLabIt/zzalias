@@ -34,7 +34,7 @@ alias zziostat="S_COLORS=always iostat -dx 1 | grep -v 'loop\|dm-'"
 
 function zzdf()
 {
-  df -h | grep -v 'loop\|tmp\|udev\|/boot/efi' | grep -v 'sr.*rom'
+  df -hT | grep -v 'loop\|tmp\|udev\|/boot/efi' | grep -v 'sr.*rom'
   echo -e "\e[1;34m---------------------------\e[0m"
   lsblk | grep -v loop
   echo -e "\e[1;34m---------------------------\e[0m"
