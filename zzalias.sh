@@ -39,7 +39,7 @@ function zzdf()
   lsblk | grep -v loop
   echo -e "\e[1;34m---------------------------\e[0m"
   findmnt | grep 'ext\|btrfs\|ntfs'
-  
+
   if [ ! -z $(command -v parted) ]; then
     echo -e "\e[1;34m---------------------------\e[0m"
     sudo parted -l | grep -i 'model\|disk /' | grep -vi 'mapper'
@@ -54,6 +54,13 @@ function zzclients()
   echo -n "Total clients: "
   netstat -antu | grep ':80\|:443' | grep -v LISTEN | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn | wc -l
 }
+
+
+function zzextractip()
+{
+  cat "$1" | grep -oP "(\d+\.){3}\d+" | sort | uniq -c | sort -rn
+}
+
 
 
 function zzzippotto()
@@ -125,19 +132,19 @@ function zzsendmail()
   else
     local MAIL_TO=$1
   fi
-  
+
   fxTitle "Sending to ${MAIL_TO}..."
   echo "This is a test email sent to $MAIL_TO from your server $(hostname). Server time is $(fxDate)" | \
     mail -s "🧪 A test email sent from your server $(hostname)!" $MAIL_TO
-    
+
   fxTitle "Waiting..."
   sleep 5
-  
+
   if [ -f /var/log/exim4/mainlog ]; then
     fxTitle "exim4/mainlog"
     tail -n 12 /var/log/exim4/mainlog
   fi
-  
+
   fxEndFooter
 }
 
@@ -145,30 +152,30 @@ function zzsendmail()
 function zzfixssh()
 {
   fxHeader "🩹 Fixing .ssh permissions..."
-  
+
   if [ -z "$1" ]; then
-  
+
     local USERNAME=$(logname)
     local HOME_PATH=$HOME
-    
+
   else
-  
+
     local USERNAME=$1
     local HOME_PATH=$( getent passwd "$USERNAME" | cut -d: -f6 )
   fi
 
   local HOME_PATH=${HOME_PATH}/
   local SSH_PATH=${HOME_PATH}.ssh/
-  
+
   fxInfo "Working on ##${SSH_PATH}##"
-  
+
   sudo chown ${USERNAME}:${USERNAME} ${HOME_PATH} -R
-  
+
   # https://superuser.com/a/215506/129204
   sudo chmod u=rwx,go= ${SSH_PATH} -R
   sudo chmod u=rw,go=r ${SSH_PATH}id_rsa.pub
   sudo chmod u=rw,go= ${SSH_PATH}id_rsa
-  
+
   sudo ls -la  ${HOME_PATH}
   echo "--"
   sudo ls -la  ${SSH_PATH}
