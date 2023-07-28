@@ -58,9 +58,8 @@ function zzclients()
 
 function zzextractip()
 {
-  cat "$1" | grep -oP "(\d+\.){3}\d+" | sort | uniq -c | sort -rn
+  XDEBUG_MODE=off php /usr/local/turbolab.it/bash-fx/scripts/ip-address-extract.php "$1"
 }
-
 
 
 function zzzippotto()
