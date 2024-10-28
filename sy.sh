@@ -67,6 +67,10 @@ elif [ "$1" == "co" ]; then
 
   XDEBUG_MODE=off symfony composer "${@:2}"
 
+elif [ "$1" == "bundles" ]; then
+
+  XDEBUG_MODE=off symfony console config:dump-reference
+
 else
 
   symfony console "$@"
