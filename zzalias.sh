@@ -70,6 +70,8 @@ function zzzippotto()
 }
 
 
+ZZMIRROR_OPTIONS="--archive --compress --delete --partial --progress --verbose --exclude '*.log'"
+
 function zzmirrorto()
 {
   if [ -z "${1}" ]; then
@@ -83,7 +85,7 @@ function zzmirrorto()
   echo "To:   ${REMOTE_PATH}"
   fxCountdown
 
-  rsync --archive --compress --delete --partial --progress --verbose . "${REMOTE_PATH}"
+  rsync $ZZMIRROR_OPTIONS . "${REMOTE_PATH}"
 }
 
 
@@ -104,7 +106,7 @@ function zzmirrorfrom()
   echo "To:   $(pwd)"
   fxCountdown
 
-  rsync --archive --compress --delete --partial --progress --verbose "${REMOTE_PATH}" .
+  rsync $ZZMIRROR_OPTIONS "${REMOTE_PATH}" .
 }
 
 
