@@ -55,6 +55,25 @@ else
 fi
 
 
+fxTitle "Testing Varnish config..."
+if [ ! -z $(command -v varnishd) ]; then
+
+  varnishd -C -f /etc/varnish/default.vcl
+
+  if [ $? -eq 0 ]; then
+    fxOK "Looking good!"
+  else
+    fxCatastrophicError "Varnish config is failing, cannot proceed"
+  fi
+  
+  VARNISH_INSTALLED=1
+
+else
+
+  fxInfo "Varnish not dectected. Skipping"
+fi
+
+
 fxTitle "Loading Webstackup..."
 if [ -f /usr/local/turbolab.it/webstackup/script/base.sh ]; then
   source /usr/local/turbolab.it/webstackup/script/base.sh
@@ -155,6 +174,7 @@ case "${ACTION}" in
     zzWsAction "$HTTPD_INSTALLED" apache2 restart sync
     zzWsPhpAction restart sync
     zzWsAction 1 mysql restart async
+    zzWsAction "$VARNISH_INSTALLED" varnish restart sync
     zzWsAction 1 postfix restart async
     zzWsAction 1 opendkim restart async
     zzWsAction 1 dovecot restart async
@@ -168,6 +188,7 @@ case "${ACTION}" in
     zzWsAction "$NGINX_INSTALLED" nginx reload sync
     zzWsAction "$HTTPD_INSTALLED" apache2 reload sync
     zzWsPhpAction reload sync
+    zzWsAction "$VARNISH_INSTALLED" varnish restart sync
     zzWsAction 1 cron reload async
     zzWsAction 1 sshd restart sync
     ;;
@@ -176,8 +197,10 @@ case "${ACTION}" in
     zzWsAction "$NGINX_INSTALLED" nginx stop sync
     zzWsAction "$HTTPD_INSTALLED" apache2 stop sync
     zzWsPhpAction restart sync
-    zzWsAction 1 mysql restart sync
-    
+    zzWsAction 1 mysql stop sync
+    zzWsAction "$VARNISH_INSTALLED" varnish stop sync
+
+    zzWsAction "$VARNISH_INSTALLED" varnish start sync
     zzWsAction "$HTTPD_INSTALLED" apache2 start sync
     zzWsAction "$NGINX_INSTALLED" nginx start sync
     
@@ -193,6 +216,7 @@ case "${ACTION}" in
   stop)
     zzWsAction "$NGINX_INSTALLED" nginx stop sync
     zzWsAction "$HTTPD_INSTALLED" apache2 stop sync
+    zzWsAction "$VARNISH_INSTALLED" varnish stop sync
     zzWsPhpAction stop sync
     zzWsAction 1 mysql stop sync
     zzWsAction 1 postfix stop sync
