@@ -58,11 +58,12 @@ fi
 fxTitle "Testing Varnish config..."
 if [ ! -z $(command -v varnishd) ]; then
 
-  varnishd -C -f /etc/varnish/default.vcl
+  VARNISH_OUTPUT="$(sudo varnishd -C -f /etc/varnish/default.vcl 2>&1)"
 
   if [ $? -eq 0 ]; then
     fxOK "Looking good!"
   else
+    fxCatastrophicError "${VARNISH_OUTPUT}" proceed
     fxCatastrophicError "Varnish config is failing, cannot proceed"
   fi
   
