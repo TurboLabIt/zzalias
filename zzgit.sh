@@ -1,40 +1,25 @@
 #!/usr/bin/env bash
 
-## Title printing function
-function printTitle
-{
-  echo ""
-  echo "$1"
-  printf '%0.s-' $(seq 1 ${#1})
-  echo ""
-}
+source /usr/local/turbolab.it/bash-fx/bash-fx.sh
+fxTitle "zzgit"
+echo "$(pwd)"
 
-printTitle "zzgit"
-echo $(pwd)
 
-printTitle "Checking if the current folder is a Git repo"
+fxTitle "Checking if the current folder is a Git repo"
 if [ ! -f ".git/config" ]; then
-
-  echo "vvvvvvvvvvvvvvvvvvvv"
-  echo "Catastrophic error!!"
-  echo "^^^^^^^^^^^^^^^^^^^^"
-  echo "##$(pwd)## is NOT a git dir"
-  echo ""
-  exit
-
-else
-
-  echo "OK! It's a repo!"
-  cat ".git/config" | grep 'url = '
+  fxCatasgrophicError "##$(pwd)## is NOT a git dir"
 fi
 
+  fxOK "OK! It's a repo!"
+  cat ".git/config" | grep 'url = '
 
-printTitle "Acquiring owner"
+
+fxTitle "Acquiring owner"
 GITUSER=$(stat -c '%U' ".git/config")
 echo $GITUSER
 
 
-printTitle "Checking current user matching"
+fxTitle "Checking current user matching"
 CURRENTUSER=$(whoami)
 if [ "$CURRENTUSER" == "$GITUSER" ]; then
 
@@ -57,48 +42,48 @@ zzgitcmd config --global --add safe.directory "$(pwd)"
 
 if [ "$1" == "superpush" ]; then
 
-  printTitle "Display current status"
+  fxTitle "Display current status"
   zzgitcmd status
   read -p "Proceed with add,commit,push? " -n 1 -r
   echo
   echo
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 
-    printTitle "KO, aborting."
+    fxTitle "KO, aborting."
     echo
     exit
   fi
 
-  printTitle "Git add"
+  fxTitle "Git add"
   zzgitcmd add .
 
-  printTitle "Git commit"
+  fxTitle "Git commit"
   zzgitcmd commit --allow-empty-message -m "${2}"
 
-  printTitle "Git pull"
+  fxTitle "Git pull"
   zzgitcmd pull --no-rebase --no-edit
 
-  printTitle "Git push"
+  fxTitle "Git push"
   zzgitcmd push
 
 
 elif [ "$1" == "flow" ]; then
 
-  printTitle "🤓 Fetching..."
+  fxTitle "🤓 Fetching..."
   zzgitcmd fetch --all
 
-  printTitle "🤓 Pulling and pushing from the current branch..."
+  fxTitle "🤓 Pulling and pushing from the current branch..."
   zzgitcmd pull --no-rebase --no-edit
   zzgitcmd push
 
 
   if [ "`git branch --list staging`" ]; then
 
-    printTitle "🧪 Switching to staging..."
+    fxTitle "🧪 Switching to staging..."
     zzgitcmd checkout staging
     zzgitcmd pull --no-rebase --no-edit
 
-    printTitle "🧪 Merging dev into staging..."
+    fxTitle "🧪 Merging dev into staging..."
     zzgitcmd merge origin/dev --no-edit
     zzgitcmd push
 
@@ -111,7 +96,7 @@ elif [ "$1" == "flow" ]; then
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 
-      printTitle "☠️  OK, quitting!"
+      fxTitle "☠️  OK, quitting!"
       echo ""
       exit
     
@@ -160,8 +145,8 @@ elif [ "$1" == "clean" ]; then
 
 else
 
-  zzgitcmd $1
+  zzgitcmd "$@"
 fi
 
-printTitle "Operation completed"
+fxTitle "Operation completed"
 echo ""
