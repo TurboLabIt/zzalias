@@ -182,7 +182,7 @@ case "${ACTION}" in
     ## cron shouldn't be restarted, or you'll get:
     # `cron.service: Found left-over process 2093062 (cron) in control group while starting unit. Ignoring.`
     zzWsAction 1 cron reload async
-    zzWsAction 1 sshd restart sync
+    zzWsAction 1 ssh restart sync
     ;;
     
   reload)
@@ -191,7 +191,7 @@ case "${ACTION}" in
     zzWsPhpAction reload sync
     zzWsAction "$VARNISH_INSTALLED" varnish restart sync
     zzWsAction 1 cron reload async
-    zzWsAction 1 sshd restart sync
+    zzWsAction 1 ssh restart sync
     ;;
 
   restart)
@@ -211,7 +211,7 @@ case "${ACTION}" in
     ## cron shouldn't be restarted, or you'll get:
     # `cron.service: Found left-over process 2093062 (cron) in control group while starting unit. Ignoring.`
     zzWsAction 1 cron reload async
-    zzWsAction 1 sshd restart sync
+    zzWsAction 1 ssh restart sync
     ;;
 
   stop)
