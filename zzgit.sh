@@ -7,7 +7,7 @@ echo "$(pwd)"
 
 fxTitle "Checking if the current folder is a Git repo"
 if [ ! -f ".git/config" ]; then
-  fxCatasgrophicError "##$(pwd)## is NOT a git dir"
+  fxCatastrophicError "##$(pwd)## is NOT a git dir"
 fi
 
   fxOK "OK! It's a repo!"
