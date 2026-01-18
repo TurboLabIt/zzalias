@@ -209,6 +209,6 @@ function zzloop()
 
 function zzgobuster()
 {
-  dirb -a "${ZZALIAS_UA}" $1
+  dirb $1 -a "${ZZALIAS_UA}"
   gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -a "${ZZALIAS_UA}" -u $1
 }
