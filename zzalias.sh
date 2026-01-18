@@ -5,6 +5,8 @@ source /usr/local/turbolab.it/bash-fx/bash-fx.sh
 echo ""
 fxInfo "zzalias enabled"
 
+ZZALIAS_UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36'
+
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
 alias zzuntar="tar -zxvf"
 alias zzsudoweb="sudo -u www-data -H bash"
@@ -20,7 +22,6 @@ alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzmyip="curl http://ipinfo.io/ip ; echo"
 alias zznmap="sudo nmap -sS -Pn -A -p- -v"
 alias zzvuln="sudo nmap --script vuln -v"
-alias zzgobuster="sudo gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -a 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36' -u "
 alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
 alias zzports="sudo netstat -putan"
 alias zzclearhistory="history -c && history -w && history && sleep 2 && clear"
@@ -203,4 +204,11 @@ function zzloop()
     sleep $1
     echo ""
   done
+}
+
+
+function zzgobuster()
+{
+  dirb -a "${ZZALIAS_UA}" $1
+  gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -a "${ZZALIAS_UA}" -u $1
 }
