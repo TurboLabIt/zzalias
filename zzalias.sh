@@ -52,10 +52,36 @@ function zzdf()
 
 function zzclients()
 {
-  netstat -antu | grep ':80\|:443' | grep -v LISTEN | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn
+  local client_ips=""
+
+  # 1. Use 'ss' if available (Faster, more accurate state tracking)
+  if command -v ss > /dev/null 2>&1; then
+    # -n: numeric IPs
+    # -t: TCP only (add -u if you specifically need QUIC/HTTP3 monitoring)
+    # state established: only counts active connections
+    # 'sport = :80 ...': Only lines where SOURCE port is 80/443 (Your server)
+    client_ips=$(ss -nt state established '( sport = :80 or sport = :443 )' | awk 'NR>1 {print $5}')
+
+  # 2. Fallback to 'netstat' (Legacy compatibility)
+  else
+    # awk '$4 ~ ...': Matches only if LOCAL Address (col 4) ends in :80 or :443
+    client_ips=$(netstat -ant | grep -v LISTEN | awk '$4 ~ /:(80|443)$/ {print $5}')
+  fi
+
+  # 3. Clean and Sort
+  # sed: Removes the port (handles both IPv4 '1.2.3.4:123' and IPv6 '[::1]:123')
+  local sorted_list=$(echo "$client_ips" | sed 's/:[0-9]*$//' | sort)
+
+  # 4. Display Output
+  if [ -z "$sorted_list" ]; then
+      echo "No active web clients connected."
+      return
+  fi
+
+  echo "$sorted_list" | uniq -c | sort -rn
   echo ""
-  echo -n "Total clients: "
-  netstat -antu | grep ':80\|:443' | grep -v LISTEN | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn | wc -l
+  echo -n "Total unique clients: "
+  echo "$sorted_list" | uniq | wc -l
 }
 
 
