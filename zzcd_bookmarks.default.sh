@@ -5,7 +5,10 @@
 #
 # You can also run: zzcd edit
 #
-ZZCD_BOOKMARKS=("/home/" "Go"
-		 "/root/" "Go"
-		 "/var/www/" "Go"
-		 "/var/log/nginx/" "Go")
+ZZCD_BOOKMARKS=(
+  "$HOME" "🏠"
+  "/var/log" "📜"
+  "/etc/cron.d" "🕒"
+  "/etc/turbolab.it" "🧩"
+  "/root" "👑"
+)
