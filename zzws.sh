@@ -32,7 +32,7 @@ if [ ! -z $(command -v nginx) ]; then
 
 else
 
-  fxInfo "NGINX not dectected. Skipping"
+  fxInfo "NGINX not detected. Skipping"
 fi
 
 
@@ -51,7 +51,7 @@ if [ ! -z $(command -v apache2) ]; then
 
 else
 
-  fxInfo "Apache HTTP Server not dectected. Skipping"
+  fxInfo "Apache HTTP Server not detected. Skipping"
 fi
 
 
@@ -71,7 +71,7 @@ if [ ! -z $(command -v varnishd) ]; then
 
 else
 
-  fxInfo "Varnish not dectected. Skipping"
+  fxInfo "Varnish not detected. Skipping"
 fi
 
 
@@ -227,7 +227,7 @@ case "${ACTION}" in
     ;;
 
   *)
-    fxCatastrophicError "Unkown action!"
+    fxCatastrophicError "Unknown action!"
     ;;
 esac
 
