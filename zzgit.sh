@@ -139,10 +139,6 @@ elif [ "$1" == "flow" ]; then
   zzgitcmd checkout dev
   zzgitcmd branch
 
-elif [ "$1" == "clean" ]; then
-
-  zzgitcmd repack -a -d --depth=250 --window=250
-
 else
 
   zzgitcmd "$@"
