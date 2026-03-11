@@ -7,7 +7,7 @@ if [ -z $(command -v curl) ] || [ -z $(command -v git) ] || [ -z $(command -v pv
 fi
 
 ## bash-fx
-curl -s https://raw.githubusercontent.com/TurboLabIt/bash-fx/master/setup.sh?$(date +%s) | sudo bash
+curl -s https://raw.githubusercontent.com/TurboLabIt/bash-fx/master/setup.sh | sudo bash
 source /usr/local/turbolab.it/bash-fx/bash-fx.sh
 ## bash-fx is ready
 

@@ -27,7 +27,7 @@ More elaborate commands
 Just execute:
 
 ```shell
-sudo apt install curl -y && curl -s https://raw.githubusercontent.com/TurboLabIt/zzalias/master/setup.sh?$(date +%s) | sudo bash ; source /usr/local/bin/zzalias
+sudo apt install curl -y && curl -s https://raw.githubusercontent.com/TurboLabIt/zzalias/master/setup.sh | sudo bash ; source /usr/local/bin/zzalias
 
 ```
 

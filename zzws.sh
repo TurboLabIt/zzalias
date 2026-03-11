@@ -2,7 +2,7 @@
 ### START/RESTART/RELOAD ALL!
 # https://github.com/TurboLabIt/zzalias/blob/master/zzws.sh
 #
-# sudo apt install curl -y && curl -s https://raw.githubusercontent.com/TurboLabIt/zzalias/master/zzws.sh?$(date +%s) | sudo bash
+# sudo apt install curl -y && curl -s https://raw.githubusercontent.com/TurboLabIt/zzalias/master/zzws.sh | sudo bash
 
 ## bash-fx
 if [ -z $(command -v curl) ]; then sudo apt update && sudo apt install curl -y; fi
