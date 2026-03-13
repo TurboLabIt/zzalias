@@ -83,6 +83,10 @@ else
 fi
 
 
+fxTitle "Daemon reload..."
+systemctl daemon-reload
+
+
 if [ -z "$PHP_KNOWN_VERSIONS" ]; then
   fxWarning "PHP_KNOWN_VERSIONS not detected..."
 fi
