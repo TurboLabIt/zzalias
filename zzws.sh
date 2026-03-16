@@ -84,7 +84,7 @@ fi
 
 
 fxTitle "Daemon reload..."
-systemctl daemon-reload
+sudo systemctl daemon-reload
 
 
 if [ -z "$PHP_KNOWN_VERSIONS" ]; then
