@@ -141,7 +141,27 @@ sudo journalctl --list-boots | \
 
 function zzhttps()
 {
-  curl -vvI "https://$1" $2 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'
+  fxHeader "zzhttps"
+
+  local INPUT=$(echo "$1" | sed -E 's|^https?://||; s|/$||')
+  local DOMAIN=$(echo "$INPUT" | sed -E 's|^www\.||')
+  local DOT_COUNT=$(echo "$DOMAIN" | tr -cd '.' | wc -c)
+
+  if [ "$DOT_COUNT" -gt 1 ]; then
+
+    fxCheckHttpsCert "$DOMAIN" "$DOMAIN"
+
+  elif echo "$INPUT" | grep -q '^www\.'; then
+
+    fxCheckHttpsCert "www.$DOMAIN" "www.$DOMAIN"
+    fxCheckHttpsCert "$DOMAIN" "ALTERNATIVE FORM: $DOMAIN"
+
+  else
+
+    fxCheckHttpsCert "$DOMAIN" "$DOMAIN"
+    fxCheckHttpsCert "www.$DOMAIN" "ALTERNATIVE FORM: www.$DOMAIN"
+
+  fi
 }
 
 
