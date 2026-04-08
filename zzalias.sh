@@ -94,18 +94,18 @@ ZZMIRROR_OPTIONS="--archive --compress --delete --partial --progress --verbose -
 
 function zzmirrorto()
 {
-  if [ -z "${1}" ]; then
-    fxCatastrophicError "Please provide the destination!"
+  local REMOTE_USER=""
+  local REMOTE_HOST_PATH="${1}"
+
+  if [[ "${1}" == *@* ]]; then
+    REMOTE_USER="${1%%@*}"
+    REMOTE_HOST_PATH="${1#*@}"
   fi
 
-  local REMOTE_PATH=${1}
+  local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
+  local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  fxTitle "⏫ Mirroring!"
-  echo "From: $(pwd)"
-  echo "To:   ${REMOTE_PATH}"
-  fxCountdown
-
-  rsync $ZZMIRROR_OPTIONS . "${REMOTE_PATH}"
+  fxMirrorToSsh "$(pwd)" "${REMOTE_USER}" "${REMOTE_HOST}" "${REMOTE_PATH}"
 }
 
 
