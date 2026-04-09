@@ -90,8 +90,6 @@ function zzzippotto()
 }
 
 
-ZZMIRROR_OPTIONS="--archive --compress --delete --partial --progress --verbose --exclude '*.log'"
-
 function zzmirrorto()
 {
   local REMOTE_USER=""
@@ -111,22 +109,18 @@ function zzmirrorto()
 
 function zzmirrorfrom()
 {
-  if [ -z "${1}" ]; then
-    fxCatastrophicError "Please provide the source!"
+  local REMOTE_USER=""
+  local REMOTE_HOST_PATH="${1}"
+
+  if [[ "${1}" == *@* ]]; then
+    REMOTE_USER="${1%%@*}"
+    REMOTE_HOST_PATH="${1#*@}"
   fi
 
-  local REMOTE_PATH=${1}
+  local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
+  local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  if [[ "${REMOTE_PATH}" != */ ]]; then
-    local REMOTE_PATH=${REMOTE_PATH}/
-  fi
-
-  fxTitle "⏬ Mirroring!"
-  echo "From: ${REMOTE_PATH}"
-  echo "To:   $(pwd)"
-  fxCountdown
-
-  rsync $ZZMIRROR_OPTIONS "${REMOTE_PATH}" .
+  fxMirrorFromSsh "${REMOTE_USER}" "${REMOTE_HOST}" "${REMOTE_PATH}" "$(pwd)"
 }
 
 
