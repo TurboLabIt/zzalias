@@ -92,6 +92,11 @@ function zzzippotto()
 
 function zzmirrorto()
 {
+  if [ -z "${1}" ] || [[ "${1}" != *:/* ]]; then
+    fxCatastrophicError "Usage: zzmirrorto <user@>host:/path/" 0
+    return 255
+  fi
+
   local REMOTE_USER=""
   local REMOTE_HOST_PATH="${1}"
 
@@ -103,12 +108,17 @@ function zzmirrorto()
   local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
   local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  fxMirrorToSsh "$(pwd)" "${REMOTE_USER}" "${REMOTE_HOST}" "${REMOTE_PATH}"
+  fxMirrorToSsh "$(pwd)" "${REMOTE_HOST}" "${REMOTE_PATH}" "${REMOTE_USER}"
 }
 
 
 function zzmirrorfrom()
 {
+  if [ -z "${1}" ] || [[ "${1}" != *:/* ]]; then
+    fxCatastrophicError "Usage: zzmirrorfrom <user@>host:/path/" 0
+    return 255
+  fi
+
   local REMOTE_USER=""
   local REMOTE_HOST_PATH="${1}"
 
@@ -120,7 +130,7 @@ function zzmirrorfrom()
   local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
   local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  fxMirrorFromSsh "${REMOTE_USER}" "${REMOTE_HOST}" "${REMOTE_PATH}" "$(pwd)"
+  fxMirrorFromSsh "${REMOTE_HOST}" "${REMOTE_PATH}" "$(pwd)" "${REMOTE_USER}"
 }
 
 
