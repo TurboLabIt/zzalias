@@ -83,6 +83,16 @@ function zzextractip()
 }
 
 
+function zzeol()
+{
+  if [ -z "$(command -v dos2unix)" ]; then
+    sudo apt-get install dos2unix -y
+  fi
+
+  sudo find "$1" -type f \( -name '*.php' -o -name '*.tpl' -o -name '*.css' -o -name '*.js' -o -name '*.txt' -o -name '*.csv' -o -name '*.xlf' \) -exec dos2unix -q {} +
+}
+
+
 function zzzippotto()
 {
   zip -qr - . | pv -bep -s $(du -bs . | awk '{print $1}') > ../zippotto.zip
