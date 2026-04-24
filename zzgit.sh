@@ -134,13 +134,29 @@ elif [ "$1" == "flow" ]; then
 
   else
 
-    echo "🤠 Yippee-ki-yay, switching to master..."
-    zzgitcmd checkout master
-    zzgitcmd pull --no-rebase --no-edit
+    if [ "`git branch --list master`" ] || [ "`git branch --list --remotes origin/master`" ]; then
 
-    echo "🤠 Merging $BRANCH_TO_MERGE_INTO_MASTER into master..."
-    zzgitcmd merge $BRANCH_TO_MERGE_INTO_MASTER --no-edit
-    zzgitcmd push
+      if [ "`git branch --list master`" ]; then
+
+        echo "🤠 Yippee-ki-yay, switching to master..."
+        zzgitcmd checkout master
+        zzgitcmd pull --no-rebase --no-edit
+
+      else
+
+        echo "🤠 Switching to master (from origin/master)..."
+        zzgitcmd switch master
+      fi
+
+      echo "🤠 Merging $BRANCH_TO_MERGE_INTO_MASTER into master..."
+      zzgitcmd merge $BRANCH_TO_MERGE_INTO_MASTER --no-edit
+      zzgitcmd push
+
+    else
+
+      fxTitle "☠️  Branch master doesn't exist anywhere! Skipping."
+
+    fi
   fi
 
   echo "🤓 Switching back to dev..."
