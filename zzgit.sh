@@ -77,11 +77,19 @@ elif [ "$1" == "flow" ]; then
   zzgitcmd push
 
 
-  if [ "`git branch --list staging`" ]; then
+  if [ "`git branch --list staging`" ] || [ "`git branch --list --remotes origin/staging`" ]; then
 
-    fxTitle "🧪 Switching to staging..."
-    zzgitcmd checkout staging
-    zzgitcmd pull --no-rebase --no-edit
+    if [ "`git branch --list staging`" ]; then
+
+      fxTitle "🧪 Switching to staging..."
+      zzgitcmd checkout staging
+      zzgitcmd pull --no-rebase --no-edit
+
+    else
+
+      fxTitle "🧪 Switching to staging (from origin/staging)..."
+      zzgitcmd switch staging
+    fi
 
     fxTitle "🧪 Merging dev into staging..."
     zzgitcmd merge origin/dev --no-edit
