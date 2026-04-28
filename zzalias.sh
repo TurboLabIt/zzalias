@@ -7,12 +7,13 @@ fxInfo "zzalias enabled"
 
 ZZALIAS_UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36'
 
+alias zzalias="sudo nano $HOME/.bash_aliases && sudo chmod u=rx,go=rx $HOME/.bash_aliases && source $HOME/.bash_aliases"
 alias zzcd="source /usr/local/turbolab.it/zzalias/zzcd.sh"
+
 alias zzuntar="tar -zxvf"
 alias zzsudoweb="sudo -u www-data -H bash"
 alias zzssh="sudo nano $HOME/.ssh/config"
 alias zzhost="sudo nano /etc/hosts"
-alias zzalias="sudo nano $HOME/.bash_aliases && sudo chmod u=rx,go=rx $HOME/.bash_aliases && source $HOME/.bash_aliases"
 alias zzspacehog="du -hs * | sort -rh | head -5"
 alias zzcountfiles="find . -maxdepth 1 -type f -printf '.' | wc -c"
 alias zzsize="sudo du -sh"
@@ -33,6 +34,7 @@ alias zzkillme="sudo killall -u $(logname)"
 alias zzprofiler="flatpak run org.kde.kcachegrind"
 alias zzscreen="screen -dR $(logname)"
 alias zziostat="S_COLORS=always iostat -dx 1 | grep -v 'loop\|dm-'"
+alias zzhttphead="curl -s -D - -o /dev/null"
 
 
 function zzdf()
