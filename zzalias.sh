@@ -86,7 +86,7 @@ function zzextractip()
 function zzeol()
 {
   if [ -z "$(command -v dos2unix)" ]; then
-    sudo apt-get install dos2unix -y
+    sudo apt install dos2unix -y
   fi
 
   sudo find "$1" -type f \( -name '*.php' -o -name '*.tpl' -o -name '*.css' -o -name '*.js' -o -name '*.txt' -o -name '*.csv' -o -name '*.xlf' \) -exec dos2unix -q {} +
@@ -241,6 +241,21 @@ function zzloop()
 
 function zzgobuster()
 {
+  if [ -z "$(command -v dirb)" ]; then
+    sudo apt update && sudo apt install dirb -y
+  fi
+
+  if [ -z "$(command -v gobuster)" ]; then
+    sudo apt update && sudo apt install gobuster -y
+  fi
+
+  local WORDLIST="/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt"
+  if [ ! -f "${WORDLIST}" ]; then
+    sudo mkdir -p "$(dirname "${WORDLIST}")"
+    sudo curl -fsSL -o "${WORDLIST}" \
+      "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/DirBuster-2007_directory-list-lowercase-2.3-medium.txt"
+  fi
+
   dirb $1 -a "${ZZALIAS_UA}"
-  gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -a "${ZZALIAS_UA}" -u $1
+  gobuster dir -w "${WORDLIST}" -a "${ZZALIAS_UA}" -u $1
 }
