@@ -281,6 +281,7 @@ function zznmap()
 
   if [ -z "$OPEN_PORTS" ]; then
     fxWarning "No open ports found on $TARGET. Skipping aggressive scan."
+    return 0
   fi
   
   fxOK "Found open ports: $OPEN_PORTS"
