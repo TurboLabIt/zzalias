@@ -21,8 +21,6 @@ alias zzphpsetcli="sudo update-alternatives --set php /usr/bin/php"
 alias zzsiege="siege -b -v -r 1 -c 50"
 alias zzcountfpm="ps aux | grep \"php-fpm: pool\" | wc -l"
 alias zzmyip="curl http://ipinfo.io/ip ; echo"
-alias zznmap="sudo nmap -sS -Pn -A -p- -v"
-alias zzvuln="sudo nmap --script vuln -v"
 alias zzsetrtc="sudo timedatectl set-local-rtc 1 --adjust-system-clock && timedatectl"
 alias zzports="sudo netstat -putan"
 alias zzclearhistory="history -c && history -w && history && sleep 2 && clear"
@@ -260,4 +258,34 @@ function zzgobuster()
 
   dirb $1 -a "${ZZALIAS_UA}"
   gobuster dir -w "${WORDLIST}" -a "${ZZALIAS_UA}" -u $1
+}
+
+
+function zznmap()
+{
+  fxHeader "📡 zznmap"
+  local TARGET="$1"
+  local LOG_FILE="/tmp/zznmap-open-ports.txt"
+
+  if [ -z "$TARGET" ]; then
+    fxCatastrophicError "Error: Please provide the IP or the hostname of the target"
+  fi
+
+  fxTitle "Running a fast port sweep on $TARGET..."
+  sudo nmap -sS -Pn -p- --min-rate 5000 "$TARGET" -oG "$LOG_FILE"
+
+  # Extract open ports using awk/sed and join them with commas
+  # This filters lines with "Ports:", extracts the port numbers, and joins them (e.g., 22,80,443)
+  local OPEN_PORTS=$(awk -F'Ports: ' '/Ports:/ {print $2}' "$LOG_FILE" | grep -oE '[0-9]+/open' | cut -d'/' -f1 | paste -sd, -)
+
+  if [ -z "$OPEN_PORTS" ]; then
+    fxWarning "No open ports found on $TARGET. Skipping aggressive scan."
+  fi
+  
+  fxOK "Found open ports: $OPEN_PORTS"
+
+  # Step 3: Run the heavy aggressive scan ONLY on the discovered ports
+  
+  fxTitle "Running aggressive scan on discovered ports..."
+  sudo nmap -sS -Pn -A -p "$OPEN_PORTS" -v "$TARGET"
 }
