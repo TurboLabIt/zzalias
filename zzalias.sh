@@ -268,7 +268,8 @@ function zznmap()
   local LOG_FILE="/tmp/zznmap-open-ports.txt"
 
   if [ -z "$TARGET" ]; then
-    fxCatastrophicError "Error: Please provide the IP or the hostname of the target"
+    fxCatastrophicError "Error: Please provide the IP or the hostname of the target" 0
+    return 255
   fi
 
   fxTitle "Running a fast port sweep on $TARGET..."
