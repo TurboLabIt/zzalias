@@ -76,9 +76,9 @@ elif [ "$1" == "flow" ]; then
   zzgitcmd push
 
 
-  if [ "`git branch --list staging`" ] || [ "`git branch --list --remotes origin/staging`" ]; then
+  if [ "`zzgitcmd branch --list staging`" ] || [ "`zzgitcmd branch --list --remotes origin/staging`" ]; then
 
-    if [ "`git branch --list staging`" ]; then
+    if [ "`zzgitcmd branch --list staging`" ]; then
 
       fxTitle "🧪 Switching to staging..."
       zzgitcmd checkout staging
@@ -133,9 +133,9 @@ elif [ "$1" == "flow" ]; then
 
   else
 
-    if [ "`git branch --list master`" ] || [ "`git branch --list --remotes origin/master`" ]; then
+    if [ "`zzgitcmd branch --list master`" ] || [ "`zzgitcmd branch --list --remotes origin/master`" ]; then
 
-      if [ "`git branch --list master`" ]; then
+      if [ "`zzgitcmd branch --list master`" ]; then
 
         echo "🤠 Yippee-ki-yay, switching to master..."
         zzgitcmd checkout master
