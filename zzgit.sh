@@ -24,9 +24,10 @@ CURRENTUSER=$(whoami)
 if [ "$CURRENTUSER" == "$GITUSER" ]; then
 
   echo "Current user match! No sudo necessary"
+  ## -c trusts the repo for this command only (a "config --global --add" would append a duplicate line to ~/.gitconfig on every zzgit run)
   function zzgitcmd
   {
-    git "$@"
+    git -c safe.directory="$PWD" "$@"
   }
 
 else
@@ -34,11 +35,9 @@ else
   echo "Current user DOESN'T match! Will sudo commands as $GITUSER"
   function zzgitcmd
   {
-    sudo -u $GITUSER -H git "$@"
+    sudo -u $GITUSER -H git -c safe.directory="$PWD" "$@"
   }
 fi
-
-zzgitcmd config --global --add safe.directory "$(pwd)"
 
 if [ "$1" == "superpush" ]; then
 
