@@ -102,45 +102,65 @@ function zzzippotto()
 
 function zzmirrorto()
 {
-  if [ -z "${1}" ] || [[ "${1}" != *:/* ]]; then
-    fxCatastrophicError "Usage: zzmirrorto <user@>host:/path/" 0
+  local WITH_LOGS_OPT="" TARGET="" ARG
+
+  for ARG in "$@"; do
+    case "${ARG}" in
+      --with-logs) WITH_LOGS_OPT="with-logs" ;;
+      -*) fxCatastrophicError "Unknown option: ${ARG}" 0; return 255 ;;
+      *) TARGET="${ARG}" ;;
+    esac
+  done
+
+  if [ -z "${TARGET}" ] || [[ "${TARGET}" != *:/* ]]; then
+    fxCatastrophicError "Usage: zzmirrorto [--with-logs] <user@>host:/path/" 0
     return 255
   fi
 
   local REMOTE_USER=""
-  local REMOTE_HOST_PATH="${1}"
+  local REMOTE_HOST_PATH="${TARGET}"
 
-  if [[ "${1}" == *@* ]]; then
-    REMOTE_USER="${1%%@*}"
-    REMOTE_HOST_PATH="${1#*@}"
+  if [[ "${TARGET}" == *@* ]]; then
+    REMOTE_USER="${TARGET%%@*}"
+    REMOTE_HOST_PATH="${TARGET#*@}"
   fi
 
   local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
   local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  fxMirrorToSsh "$(pwd)" "${REMOTE_HOST}" "${REMOTE_PATH}" "${REMOTE_USER}"
+  fxMirrorToSsh "$(pwd)" "${REMOTE_HOST}" "${REMOTE_PATH}" "${REMOTE_USER}" "" "" "${WITH_LOGS_OPT}"
 }
 
 
 function zzmirrorfrom()
 {
-  if [ -z "${1}" ] || [[ "${1}" != *:/* ]]; then
-    fxCatastrophicError "Usage: zzmirrorfrom <user@>host:/path/" 0
+  local WITH_LOGS_OPT="" TARGET="" ARG
+
+  for ARG in "$@"; do
+    case "${ARG}" in
+      --with-logs) WITH_LOGS_OPT="with-logs" ;;
+      -*) fxCatastrophicError "Unknown option: ${ARG}" 0; return 255 ;;
+      *) TARGET="${ARG}" ;;
+    esac
+  done
+
+  if [ -z "${TARGET}" ] || [[ "${TARGET}" != *:/* ]]; then
+    fxCatastrophicError "Usage: zzmirrorfrom [--with-logs] <user@>host:/path/" 0
     return 255
   fi
 
   local REMOTE_USER=""
-  local REMOTE_HOST_PATH="${1}"
+  local REMOTE_HOST_PATH="${TARGET}"
 
-  if [[ "${1}" == *@* ]]; then
-    REMOTE_USER="${1%%@*}"
-    REMOTE_HOST_PATH="${1#*@}"
+  if [[ "${TARGET}" == *@* ]]; then
+    REMOTE_USER="${TARGET%%@*}"
+    REMOTE_HOST_PATH="${TARGET#*@}"
   fi
 
   local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
   local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  fxMirrorFromSsh "${REMOTE_HOST}" "${REMOTE_PATH}" "$(pwd)" "${REMOTE_USER}"
+  fxMirrorFromSsh "${REMOTE_HOST}" "${REMOTE_PATH}" "$(pwd)" "${REMOTE_USER}" "" "" "${WITH_LOGS_OPT}"
 }
 
 
