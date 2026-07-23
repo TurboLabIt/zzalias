@@ -102,18 +102,19 @@ function zzzippotto()
 
 function zzmirrorto()
 {
-  local WITH_LOGS_OPT="" TARGET="" ARG
+  local WITH_LOGS_OPT="" FAST_OPT="" TARGET="" ARG
 
   for ARG in "$@"; do
     case "${ARG}" in
       --with-logs) WITH_LOGS_OPT="with-logs" ;;
+      --fast) FAST_OPT="fast" ;;
       -*) fxCatastrophicError "Unknown option: ${ARG}" 0; return 255 ;;
       *) TARGET="${ARG}" ;;
     esac
   done
 
   if [ -z "${TARGET}" ] || [[ "${TARGET}" != *:/* ]]; then
-    fxCatastrophicError "Usage: zzmirrorto [--with-logs] <user@>host:/path/" 0
+    fxCatastrophicError "Usage: zzmirrorto [--with-logs] [--fast] <user@>host:/path/" 0
     return 255
   fi
 
@@ -128,24 +129,25 @@ function zzmirrorto()
   local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
   local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  fxMirrorToSsh "$(pwd)" "${REMOTE_HOST}" "${REMOTE_PATH}" "${REMOTE_USER}" "" "" "${WITH_LOGS_OPT}"
+  fxMirrorToSsh "$(pwd)" "${REMOTE_HOST}" "${REMOTE_PATH}" "${REMOTE_USER}" "" "" "${WITH_LOGS_OPT}" "${FAST_OPT}"
 }
 
 
 function zzmirrorfrom()
 {
-  local WITH_LOGS_OPT="" TARGET="" ARG
+  local WITH_LOGS_OPT="" FAST_OPT="" TARGET="" ARG
 
   for ARG in "$@"; do
     case "${ARG}" in
       --with-logs) WITH_LOGS_OPT="with-logs" ;;
+      --fast) FAST_OPT="fast" ;;
       -*) fxCatastrophicError "Unknown option: ${ARG}" 0; return 255 ;;
       *) TARGET="${ARG}" ;;
     esac
   done
 
   if [ -z "${TARGET}" ] || [[ "${TARGET}" != *:/* ]]; then
-    fxCatastrophicError "Usage: zzmirrorfrom [--with-logs] <user@>host:/path/" 0
+    fxCatastrophicError "Usage: zzmirrorfrom [--with-logs] [--fast] <user@>host:/path/" 0
     return 255
   fi
 
@@ -160,7 +162,7 @@ function zzmirrorfrom()
   local REMOTE_HOST="${REMOTE_HOST_PATH%%:*}"
   local REMOTE_PATH="${REMOTE_HOST_PATH#*:}"
 
-  fxMirrorFromSsh "${REMOTE_HOST}" "${REMOTE_PATH}" "$(pwd)" "${REMOTE_USER}" "" "" "${WITH_LOGS_OPT}"
+  fxMirrorFromSsh "${REMOTE_HOST}" "${REMOTE_PATH}" "$(pwd)" "${REMOTE_USER}" "" "" "${WITH_LOGS_OPT}" "${FAST_OPT}"
 }
 
 
