@@ -264,11 +264,11 @@ function zzloop()
 function zzgobuster()
 {
   if [ -z "$(command -v dirb)" ]; then
-    sudo apt update && sudo apt install dirb -y
+    fxAptUpdate && sudo apt install dirb -y
   fi
 
   if [ -z "$(command -v gobuster)" ]; then
-    sudo apt update && sudo apt install gobuster -y
+    fxAptUpdate && sudo apt install gobuster -y
   fi
 
   local WORDLIST="/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt"
