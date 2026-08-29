@@ -211,32 +211,7 @@ function zzfixssh()
 {
   fxHeader "🩹 Fixing .ssh permissions..."
 
-  if [ -z "$1" ]; then
-
-    local USERNAME=$(logname)
-    local HOME_PATH=$HOME
-
-  else
-
-    local USERNAME=$1
-    local HOME_PATH=$( getent passwd "$USERNAME" | cut -d: -f6 )
-  fi
-
-  local HOME_PATH=${HOME_PATH}/
-  local SSH_PATH=${HOME_PATH}.ssh/
-
-  fxInfo "Working on ##${SSH_PATH}##"
-
-  sudo chown ${USERNAME}:${USERNAME} ${HOME_PATH} -R
-
-  # https://superuser.com/a/215506/129204
-  sudo chmod u=rwx,go= ${SSH_PATH} -R
-  sudo chmod u=rw,go=r ${SSH_PATH}id_rsa.pub
-  sudo chmod u=rw,go= ${SSH_PATH}id_rsa
-
-  sudo ls -la  ${HOME_PATH}
-  echo "--"
-  sudo ls -la  ${SSH_PATH}
+  fxSshResetUserSshPermissions "$@"
 }
 
 
