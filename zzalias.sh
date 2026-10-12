@@ -95,8 +95,9 @@ function zzeol()
 
 function zzzippotto()
 {
-  zip -qr - . | pv -bep -s $(du -bs . | awk '{print $1}') > ../zippotto.zip
-  chmod ugo=rw ../zippotto.zip
+  sudo rm -f ../zippotto.zip
+  sudo zip -qr --symlinks ../zippotto.zip .
+  sudo chmod ugo=rw ../zippotto.zip
 }
 
 
