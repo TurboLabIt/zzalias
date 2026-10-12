@@ -169,10 +169,8 @@ function zzmirrorfrom()
 
 function zzoom()
 {
-sudo journalctl --list-boots | \
-    awk '{ print $1 }' | \
-    xargs -I{} journalctl --utc --no-pager -b {} -kqg 'killed process' -o verbose --output-fields=MESSAGE
-
+  ## not -k: it implies the current boot only, hiding the OOMs that came before a reboot
+  sudo journalctl _TRANSPORT=kernel -g "oom|out of memory|killed process" -l --no-pager
 }
 
 
